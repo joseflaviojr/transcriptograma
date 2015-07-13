@@ -73,7 +73,7 @@ public class MatrizAdjacencias {
 			System.out.println( "Arquivo de entrada (rede): CSV de 2 colunas sem cabeçalho; as linhas correspondem a arestas entre dois vértices (colunas)." );
 			System.out.println( "Uma terceira coluna, opcional, pode especificar o peso da aresta (valor inteiro)." );
 			System.out.println( MatrizAdjacencias.class.getSimpleName() + " <arquivo_rede> <orientada:sim|nao> <separador_csv:tab|esp|virg|pvirg|vert>" );
-			System.out.println( "Saída: <arquivo_rede.matriz.csv> e <arquivo_rede.nomes.csv>" );
+			System.out.println( "Saída: <arquivo_rede.matriz.csv> e <arquivo_rede.nomes.txt>" );
 			System.exit( 1 );
 		}
 		
@@ -128,7 +128,7 @@ public class MatrizAdjacencias {
 			}
 			
 			FileWriter arquivoMatriz = new FileWriter( new File( arquivo.getAbsolutePath() + ".matriz.csv" ) );
-			FileWriter arquivoNomes  = new FileWriter( new File( arquivo.getAbsolutePath() + ".nomes.csv" ) );
+			FileWriter arquivoNomes  = new FileWriter( new File( arquivo.getAbsolutePath() + ".nomes.txt" ) );
 			
 			for( int i = 0; i < total; i++ ){
 				
