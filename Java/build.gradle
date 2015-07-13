@@ -1,0 +1,59 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+group = 'com.joseflavio'
+archivesBaseName = 'transcriptograma'
+version = '2015'
+
+sourceCompatibility = 1.6
+compileJava.options.encoding = 'ISO-8859-1'
+
+sourceSets {
+    main.java.srcDirs = ['fonte']
+    main.resources.srcDirs = ['recurso']
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Transcriptograma',
+                   'Implementation-Version': version,
+                   'Main-Class': ''
+    }
+}
+
+task jarFonte(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task jarJavadoc(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+    javadoc.options.encoding = 'ISO-8859-1'
+    javadoc.failOnError = false
+}
+
+artifacts {
+    archives jarFonte, jarJavadoc
+}
+
+repositories {
+    mavenCentral()
+    flatDir {
+       dirs 'biblioteca'
+   }
+}
+
+eclipse {
+    project {
+        name = 'transcriptograma'
+    }
+    classpath {
+        defaultOutputDir = file('binario')
+        file {
+            beforeMerged {
+                classpath -> classpath.entries.removeAll { entry -> entry.kind == 'output' }
+            }
+        }
+    }
+}
