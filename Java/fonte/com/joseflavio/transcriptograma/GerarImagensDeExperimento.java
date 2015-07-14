@@ -152,7 +152,7 @@ public class GerarImagensDeExperimento {
 				FileWriter arquivoOrdem = new FileWriter( new File( matrizArquivo.getParent(), matrizArquivo.getName() + "." + algoritmo + "[" + execucao + "].ordem.txt" ) );
 				int[] ordem = registros[registros.length-1].getOrdem();
 				for( int i = 0; i < ordem.length; i++ ){
-					if( i > 0 ) arquivoOrdem.write( "\n" );
+					if( i > 0 ) arquivoOrdem.write( "," );
 					arquivoOrdem.write( "" + ordem[i] );
 				}
 				arquivoOrdem.close();
