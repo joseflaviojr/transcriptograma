@@ -115,9 +115,11 @@ public class GerarImagensDeExperimento {
 			dispersaoArquivoNome = dispersaoArquivoNome.substring( 0, dispersaoArquivoNome.length() - 3 ) + "disp.txt";
 			FileWriter dispersaoArquivo = new FileWriter( new File( resultado.getParentFile(), dispersaoArquivoNome ) );
 			
+			Registro[] registros = Ferramenta.carregarRegistros( resultado );
 			int passo = 1;
 			long ultimaDispersao = -1;
-			for( Registro registro : Ferramenta.carregarRegistros( resultado ) ){
+
+			for( Registro registro : registros ){
 				
 				Ferramenta.salvarImagem(
 						matriz,
@@ -145,6 +147,16 @@ public class GerarImagensDeExperimento {
 			}
 		
 			dispersaoArquivo.close();
+			
+			if( registros.length > 0 ){
+				FileWriter arquivoOrdem = new FileWriter( new File( matrizArquivo.getParent(), matrizArquivo.getName() + "." + algoritmo + "[" + execucao + "].ordem.txt" ) );
+				int[] ordem = registros[registros.length-1].getOrdem();
+				for( int i = 0; i < ordem.length; i++ ){
+					if( i > 0 ) arquivoOrdem.write( "\n" );
+					arquivoOrdem.write( "" + ordem[i] );
+				}
+				arquivoOrdem.close();
+			}
 			
 		}
 		
