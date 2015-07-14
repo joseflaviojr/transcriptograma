@@ -63,16 +63,23 @@ public class OrganizarTabela {
 			}
 		}
 		
-		if( args.length < 2 || ! argumentosOK ){
+		if( args.length < 3 || ! argumentosOK ){
 			System.out.println( "Ordena as linhas de uma tabela CSV pela primeira coluna conforme uma lista ordenada de valores." );
-			System.out.println( OrganizarTabela.class.getSimpleName() + " <arquivo_ordem> <arquivo_tabela_csv>" );
+			System.out.println( OrganizarTabela.class.getSimpleName() + " <arquivo_nomes_ordem> <arquivo_tabela_csv> <separador_csv:tab|esp|virg|pvirg|vert>" );
 			System.exit( 1 );
 		}
 		
 		try{
 			
-			File arquivo_ordem = new File( args[0] );
-			File arquivo_csv   = new File( args[1] );
+			File   arquivo_ordem = new File( args[0] );
+			File   arquivo_csv   = new File( args[1] );
+			String separador_csv =           args[2];
+			
+			if( separador_csv.equals( "tab" ) ) separador_csv = "\t";
+			else if( separador_csv.equals( "esp" ) ) separador_csv = " ";
+			else if( separador_csv.equals( "virg" ) ) separador_csv = ",";
+			else if( separador_csv.equals( "pvirg" ) ) separador_csv = ";";
+			else if( separador_csv.equals( "vert" ) ) separador_csv = "|";
 			
 			List<String> lista = Ferramenta.carregarNomes( arquivo_ordem );
 			Map<String,String[]> mapa = new HashMap<String,String[]>( lista.size() );
@@ -84,7 +91,7 @@ public class OrganizarTabela {
 			try{
 				String linha;
 				while( ( linha = entrada.readLine() ) != null ){
-					colunas = linha.split( "\t" );
+					colunas = linha.split( separador_csv );
 					mapa.put( colunas[0], colunas );
 					if( colunas.length > totalColunas ) totalColunas = colunas.length;
 				}
@@ -102,7 +109,7 @@ public class OrganizarTabela {
 				}
 				primeiro = true;
 				for( int i = 0; i < colunas.length; i++ ){
-					if( ! primeiro ) System.out.print( "\t" );
+					if( ! primeiro ) System.out.print( separador_csv );
 					System.out.print( colunas[i] );
 					primeiro = false;
 				}
