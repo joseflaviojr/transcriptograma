@@ -57,7 +57,7 @@ import java.util.Map;
  * @version 2015
  */
 public class MatrizAdjacencias {
-
+	
 	public static void main( String[] args ) {
 		
 		boolean argumentosOK = true;
@@ -92,6 +92,7 @@ public class MatrizAdjacencias {
 			List<String[]> linhas = new ArrayList<String[]>( 5000 );
 			List<String> nomes = new ArrayList<String>( 5000 );
 			Map<String,Integer> posicoes = new HashMap<String,Integer>( 5000 );
+			int i, j;
 			
 			BufferedReader entrada = new BufferedReader( new FileReader( arquivo ) );
 			try{
@@ -100,7 +101,7 @@ public class MatrizAdjacencias {
 				while( ( linha = entrada.readLine() ) != null ){
 					colunas = linha.split( separador_csv );
 					linhas.add( colunas );
-					for( int i = 0; i < 2; i++ ){
+					for( i = 0; i < 2; i++ ){
 						nome = colunas[i];
 						if( posicoes.get( nome ) == null ){
 							nomes.add( nome );
@@ -117,22 +118,24 @@ public class MatrizAdjacencias {
 			for( String nome : nomes ){
 				posicoes.put( nome, total++ );
 			}
+
+			System.out.println( "Total: " + total );
 			
-			int[][] matriz = new int[total][total];
+			short[][] matriz = new short[total][total];
 			
 			for( String[] coluna : linhas ){
-				int i = posicoes.get( coluna[0] );
-				int j = posicoes.get( coluna[1] );
-				matriz[i][j] = coluna.length < 3 ? 1 : Integer.parseInt( coluna[2] );
+				i = posicoes.get( coluna[0] );
+				j = posicoes.get( coluna[1] );
+				matriz[i][j] = coluna.length < 3 ? 1 : Short.parseShort( coluna[2] );
 				if( ! orientada ) matriz[j][i] = matriz[i][j];
 			}
 			
 			FileWriter arquivoMatriz = new FileWriter( new File( arquivo.getAbsolutePath() + ".matriz.csv" ) );
 			FileWriter arquivoNomes  = new FileWriter( new File( arquivo.getAbsolutePath() + ".nomes.txt" ) );
 			
-			for( int i = 0; i < total; i++ ){
+			for( i = 0; i < total; i++ ){
 				
-				for( int j = 0; j < total; j++ ){
+				for( j = 0; j < total; j++ ){
 					if( j > 0 ) arquivoMatriz.write( separador_csv );
 					arquivoMatriz.write( "" + matriz[i][j] );
 				}
