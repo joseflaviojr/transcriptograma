@@ -58,7 +58,7 @@ public class Estatistica {
 		"Experimento", "Rede", "Tamanho", "Algoritmo",
 		"Execucao", "Dispersao", "TempoUltimaMelhoria", "Dispersao/TempoUltimaMelhoria",
 		"%Reducao", "%Reducao/TempoUltimaMelhoria", "TempoReducao10%", "Mensuracoes",
-		"Mudancas", "MudancasDesfeitas", "Melhorias" };
+		"Mudancas", "MudancasDesfeitas", "Melhorias", "DispersaoMin", "DispersaoMax", "Arestas", "Escada" };
 
 	public static void main( String[] args ) {
 		
@@ -84,10 +84,13 @@ public class Estatistica {
 				
 				System.out.println( matrizArquivo.getName() );
 				
+				short[][] matriz = Ferramenta.carregarMatriz( matrizArquivo );
+				long[] dispersaoMinMax = Ferramenta.calcularDispersaoMinMax( matriz, Ferramenta.grafoOrientado( matriz ) );
+				
 				for( int execucao = 1; execucao <= 50; execucao++ ){
-					calcular( matrizArquivo, "CFM", execucao, saida );
-					calcular( matrizArquivo, "CLA", execucao, saida );
-					calcular( matrizArquivo, "DEM", execucao, saida );
+					calcular( matrizArquivo, matriz, dispersaoMinMax, "CFM", execucao, saida );
+					calcular( matrizArquivo, matriz, dispersaoMinMax, "CLA", execucao, saida );
+					calcular( matrizArquivo, matriz, dispersaoMinMax, "DEM", execucao, saida );
 				}
 				
 				System.gc();
@@ -102,14 +105,15 @@ public class Estatistica {
 
 	}
 	
-	private static void calcular( File matrizArquivo, String algoritmo, int execucao, FileWriter saida ) throws IOException {
+	private static void calcular( File matrizArquivo, short[][] matriz, long[] dispersaoMinMax, String algoritmo, int execucao, FileWriter saida ) throws IOException {
 
 		/* --------------- */
 		
 		String prefixo = matrizArquivo.getName() + "." + algoritmo + "[" + execucao + "]";
 		File arquivoDispersao = new File( matrizArquivo.getParent(), prefixo + ".disp.txt" );
 		File arquivoEstatisca = new File( matrizArquivo.getParent(), prefixo + ".estat.txt" );
-		if( ! arquivoDispersao.exists() || ! arquivoEstatisca.exists() ) return;
+		File arquivoOrdem     = new File( matrizArquivo.getParent(), prefixo + ".ordem.txt" );
+		if( ! arquivoDispersao.exists() || ! arquivoEstatisca.exists() || ! arquivoOrdem.exists() ) return;
 		
 		/* --------------- */
 		
@@ -162,12 +166,12 @@ public class Estatistica {
 		
 		/* --------------- */
 		
-		long dispersaoMax = dispersaoMatriz[0][1];
+		long dispersaoInicial = dispersaoMatriz[0][1];
 		
 		i = dispersaoTotal-1;
-		long dispersaoMin = dispersaoMatriz[i][1];
+		long dispersaoFinal = dispersaoMatriz[i][1];
 		
-		saida.write( "" + dispersaoMin );
+		saida.write( "" + dispersaoFinal );
 		saida.write( ";" );
 		
 		/* --------------- */
@@ -179,12 +183,12 @@ public class Estatistica {
 		/* --------------- */
 		
 		if( tempo == 0 ) tempo = 1;
-		saida.write( "" + (int)( (double) dispersaoMin / tempo ) );
+		saida.write( "" + (int)( (double) dispersaoFinal / tempo ) );
 		saida.write( ";" );
 		
 		/* --------------- */
 		
-		double reducao = (double)( dispersaoMax - dispersaoMin ) / dispersaoMax * 100;
+		double reducao = (double)( dispersaoInicial - dispersaoFinal ) / dispersaoInicial * 100;
 		saida.write( nf.format( reducao ) );
 		saida.write( ";" );
 		
@@ -195,7 +199,7 @@ public class Estatistica {
 		
 		/* --------------- */
 		
-		long dispersaoParcial = (int)( dispersaoMax * 0.9d );
+		long dispersaoParcial = (int)( dispersaoInicial * 0.9d );
 		for( i = 0; i < dispersaoTotal; i++ ){
 			if( dispersaoMatriz[i][1] <= dispersaoParcial ){
 				saida.write( "" + dispersaoMatriz[i][0] );
@@ -216,6 +220,26 @@ public class Estatistica {
 		saida.write( "" + estatisticaMatriz[i][3] );
 		saida.write( ";" );
 		saida.write( "" + estatisticaMatriz[i][4] );
+		
+		/* --------------- */
+		
+		saida.write( ";" );
+		saida.write( "" + dispersaoMinMax[0] );
+		saida.write( ";" );
+		saida.write( "" + dispersaoMinMax[1] );
+		
+		/* --------------- */
+		
+		saida.write( ";" );
+		saida.write( "" + dispersaoMinMax[2] );
+		
+		/* --------------- */
+		
+		saida.write( ";" );
+		saida.write( "" + Ferramenta.calcularEscada( matriz, Ferramenta.carregarOrdem( arquivoOrdem ), Ferramenta.grafoOrientado( matriz ) ) );
+		
+		/* --------------- */
+		
 		saida.write( "\n" );
 		
 		/* --------------- */

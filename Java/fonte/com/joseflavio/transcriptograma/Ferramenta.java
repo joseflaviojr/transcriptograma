@@ -63,7 +63,7 @@ public class Ferramenta {
 	/**
 	 * @param arquivo Arquivo no formato CSV.
 	 */
-	public static int[][] carregarMatriz( File arquivo ) throws IOException {
+	public static short[][] carregarMatriz( File arquivo ) throws IOException {
 		
 		BufferedReader entrada = new BufferedReader( new FileReader( arquivo ) );
 		
@@ -82,10 +82,10 @@ public class Ferramenta {
 			
 			// Matriz
 			
-			int[][] matriz = new int[total][total];
+			short[][] matriz = new short[total][total];
 			
 			char c, numero[] = new char[50];
-			int  d = 0, i = 0, j = 0;
+			int d = 0, i = 0, j = 0;
 	
 			while( ( c = (char) entrada.read() ) != (char) -1 ){
 	
@@ -96,7 +96,7 @@ public class Ferramenta {
 					case ' ' :
 					case '\t' :
 					case '\n' :
-						matriz[i][j] = Integer.parseInt( new String( numero, 0, d ) );
+						matriz[i][j] = Short.parseShort( new String( numero, 0, d ) );
 						j++;
 						d = 0;
 						break;
@@ -117,7 +117,7 @@ public class Ferramenta {
 			}
 	
 			if( d > 0 && j > 0 && j < total ){
-				matriz[i][j] = Integer.parseInt( new String( numero, 0, d ) );
+				matriz[i][j] = Short.parseShort( new String( numero, 0, d ) );
 			}
 			
 			return matriz;
@@ -135,7 +135,7 @@ public class Ferramenta {
 		try{
 			
 			List<Registro> registros = new ArrayList<Registro>( 100 );
-			List<Integer> ordem = new ArrayList<Integer>( 5000 );
+			List<Short> ordem = new ArrayList<Short>( 5000 );
 			String linha;
 			
 			while( ( linha = entrada.readLine() ) != null ){
@@ -146,8 +146,8 @@ public class Ferramenta {
 				registro.setTempoMelhoria( Integer.parseInt( entrada.readLine() ) );
 				
 				ordem.clear();
-				for( String n : entrada.readLine().split( "," ) ) ordem.add( Integer.parseInt( n ) );
-				int[] array = new int[ ordem.size() ];
+				for( String n : entrada.readLine().split( "," ) ) ordem.add( Short.parseShort( n ) );
+				short[] array = new short[ ordem.size() ];
 				for( int i = 0; i < array.length; i++ ) array[i] = ordem.get( i );
 				registro.setOrdem( array );
 				
@@ -163,15 +163,15 @@ public class Ferramenta {
 		
 	}
 	
-	public static int[] carregarOrdem( File arquivo ) throws IOException {
+	public static short[] carregarOrdem( File arquivo ) throws IOException {
 		
 		BufferedReader entrada = new BufferedReader( new FileReader( arquivo ) );
 		
 		try{
 			
-			List<Integer> ordem = new ArrayList<Integer>( 5000 );
-			for( String n : entrada.readLine().split( "," ) ) ordem.add( Integer.parseInt( n ) );
-			int[] array = new int[ ordem.size() ];
+			List<Short> ordem = new ArrayList<Short>( 5000 );
+			for( String n : entrada.readLine().split( "," ) ) ordem.add( Short.parseShort( n ) );
+			short[] array = new short[ ordem.size() ];
 			for( int i = 0; i < array.length; i++ ) array[i] = ordem.get( i );
 			return array;
 			
@@ -230,7 +230,7 @@ public class Ferramenta {
 	/**
 	 * Imagem PNG da matriz ordenada.
 	 */
-	public static void salvarImagem( int[][] matriz, int[] ordem, File destino ) throws IOException {
+	public static void salvarImagem( short[][] matriz, short[] ordem, File destino ) throws IOException {
 		
 		int total = ordem.length;
 		BufferedImage img = new BufferedImage( total, total, BufferedImage.TYPE_INT_RGB );
@@ -245,7 +245,7 @@ public class Ferramenta {
 		
 	}
 	
-	public static boolean grafoOrientado( int[][] matriz ) {
+	public static boolean grafoOrientado( short[][] matriz ) {
 		int total = matriz.length;
 		for( int i = 0; i < (total-1); i++ ){
 			for( int j = i+1; j < total; j++ ){
@@ -255,11 +255,11 @@ public class Ferramenta {
 		return false;
 	}
 	
-	public static long calcularDispersao( int[][] matriz, int[] ordem ) {
+	public static long calcularDispersao( short[][] matriz, short[] ordem ) {
 		return calcularDispersao( matriz, ordem, grafoOrientado( matriz ) );
 	}
 	
-	public static long calcularDispersao( int[][] matriz, int[] ordem, boolean orientado ) {
+	public static long calcularDispersao( short[][] matriz, short[] ordem, boolean orientado ) {
 		
 		long dispersao = 0;
 		int total = ordem.length;
@@ -288,9 +288,94 @@ public class Ferramenta {
 	}
 	
 	/**
+	 * Calcula a dispersão virtual fisicamente mínima e a máxima.<br>
+	 * <pre>
+	 * [0] = Dispersão mínima
+	 * [1] = Dispersão máxima
+	 * [2] = Total de arestas
+	 * </pre>
+	 */
+	public static long[] calcularDispersaoMinMax( short[][] matriz, boolean orientado ) {
+		
+		long resultado[] = { 0, 0, 0 };
+		short arestas = 0;
+		int total = matriz[0].length;
+		int i, j, a;
+
+		for( i = 0; i < total; i++ ){
+			for( j = 0; j < total; j++ ){
+				if( matriz[i][j] != 0 ) arestas++;
+			}
+		}
+		
+		if( ! orientado ) arestas /= 2;
+		resultado[2] = arestas;
+		
+		// Dispersão mínima
+		
+		for( i = total - 1, a = arestas; a > 0 && i > 0; i-- ){
+			for( j = i; a > 0 && j > 0; j-- ){
+				resultado[0] += total - i;
+				a--;
+				if( orientado && a > 0 ){
+					resultado[0] += total - i;
+					a--;
+				}
+			}
+		}
+		
+		// Dispersão máxima
+		
+		for( i = 1, a = arestas; a > 0 && i < total; i++ ){
+			for( j = i; a > 0 && j > 0; j-- ){
+				resultado[1] += total - i;
+				a--;
+				if( orientado && a > 0 ){
+					resultado[1] += total - i;
+					a--;
+				}
+			}
+		}
+		
+		return resultado;
+
+	}
+	
+	/**
+	 * Escada: fator que mede a qualidade da redução do número de arestas entre as diagonais a partir do centro.
+	 */
+	public static long calcularEscada( short[][] matriz, short[] ordem, boolean orientado ) {
+
+		long escada = 0;
+		int total = ordem.length;
+		short[] vetor = new short[total-1];
+		
+		for( int d = 1; d < total; d++ ){
+			for( int i = 0; i < (total-d); i++ ){
+				vetor[d-1] += matriz[ordem[i]-1][ordem[i+d]-1] != 0 ? 1 : 0;
+			}
+		}
+		
+		if( orientado ){
+			for( int d = 1; d < total; d++ ){
+				for( int i = d; i < total; i++ ){
+					vetor[d-1] += matriz[ordem[i]-1][ordem[i-d]-1] != 0 ? 1 : 0;
+				}
+			}
+		}
+		
+		for( int i = 0; i < (vetor.length-1); i++ ){
+			escada += vetor[i] - vetor[i+1];
+		}
+
+		return escada;
+		
+	}
+	
+	/**
 	 * Modularidade por densidade de cada coluna da matriz ordenada.
 	 */
-	public static int[] calcularModularidadeDensidade( int[][] matriz, int[] ordem, double densidadeMin ) {
+	public static int[] calcularModularidadeDensidade( short[][] matriz, short[] ordem, double densidadeMin ) {
 		
 		int total = ordem.length;
 		int[] modularidade = new int[total];
@@ -332,7 +417,7 @@ public class Ferramenta {
 	/**
 	 * Modularidade por janela de cada coluna da matriz ordenada.
 	 */
-	public static int[] calcularModularidadeJanela( int[][] matriz, int[] ordem, int janela ) {
+	public static int[] calcularModularidadeJanela( short[][] matriz, short[] ordem, int janela ) {
 	
 		int total = ordem.length;
 		int[] modularidade = new int[total];

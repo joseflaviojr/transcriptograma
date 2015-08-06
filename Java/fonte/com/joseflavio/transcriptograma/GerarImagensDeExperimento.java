@@ -73,7 +73,7 @@ public class GerarImagensDeExperimento {
 				
 				System.out.println( matrizArquivo.getName() );
 				
-				int[][] matriz = Ferramenta.carregarMatriz( matrizArquivo );
+				short[][] matriz = Ferramenta.carregarMatriz( matrizArquivo );
 				
 				File diretorioImagens = new File( matrizArquivo.getParent(), matrizArquivo.getName() + "_IMAGENS" );
 				if( ! diretorioImagens.exists() ) diretorioImagens.mkdir();
@@ -92,7 +92,7 @@ public class GerarImagensDeExperimento {
 
 	}
 	
-	private static void gerarImagens( String algoritmo, File matrizArquivo, int[][] matriz, File diretorioImagens ) throws IOException {
+	private static void gerarImagens( String algoritmo, File matrizArquivo, short[][] matriz, File diretorioImagens ) throws IOException {
 
 		File diretorioAlgoritmo = new File( diretorioImagens, algoritmo );
 		if( ! diretorioAlgoritmo.exists() ) diretorioAlgoritmo.mkdir();
@@ -150,7 +150,7 @@ public class GerarImagensDeExperimento {
 			
 			if( registros.length > 0 ){
 				FileWriter arquivoOrdem = new FileWriter( new File( matrizArquivo.getParent(), matrizArquivo.getName() + "." + algoritmo + "[" + execucao + "].ordem.txt" ) );
-				int[] ordem = registros[registros.length-1].getOrdem();
+				short[] ordem = registros[registros.length-1].getOrdem();
 				for( int i = 0; i < ordem.length; i++ ){
 					if( i > 0 ) arquivoOrdem.write( "," );
 					arquivoOrdem.write( "" + ordem[i] );

@@ -74,7 +74,7 @@ public class GerarGrafico {
 			File arquivo_serie  = new File( args[0] );
 			File arquivo_imagem = new File( arquivo_serie.getParent(), args[4] );
 			
-			int[]   serie   = Ferramenta.carregarOrdem( arquivo_serie );
+			short[] serie   = Ferramenta.carregarOrdem( arquivo_serie );
 			boolean tipo    = args[1].toLowerCase().equals( "linha" );
 			int     altura  = Integer.parseInt( args[2] );
 			int     cor     = Integer.parseInt( args[3].toUpperCase(), 16 );

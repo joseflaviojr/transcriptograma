@@ -50,7 +50,7 @@ public class Registro {
 	
 	private int tempoMelhoria;
 	
-	private int[] ordem;
+	private short[] ordem;
 	
 	public Registro() {
 	}
@@ -71,11 +71,11 @@ public class Registro {
 		this.tempoMelhoria = tempoMelhoria;
 	}
 
-	public int[] getOrdem() {
+	public short[] getOrdem() {
 		return ordem;
 	}
 	
-	public void setOrdem( int[] ordem ) {
+	public void setOrdem( short[] ordem ) {
 		this.ordem = ordem;
 	}
 	

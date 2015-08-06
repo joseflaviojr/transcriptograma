@@ -61,9 +61,9 @@ public class ModularidadeDensidade {
 			File arquivo_matriz = new File( args[0] );
 			File arquivo_ordem  = new File( args[1] );
 			
-			int[][] matriz    = Ferramenta.carregarMatriz( arquivo_matriz );
-			int[]   ordem     = Ferramenta.carregarOrdem( arquivo_ordem );
-			double  densidade = Integer.parseInt( args[2] ) / 100d;
+			short[][] matriz    = Ferramenta.carregarMatriz( arquivo_matriz );
+			short[]   ordem     = Ferramenta.carregarOrdem( arquivo_ordem );
+			double  densidade   = Integer.parseInt( args[2] ) / 100d;
 			
 			int[] modularidade = Ferramenta.calcularModularidadeDensidade( matriz, ordem, densidade );
 			System.out.print( modularidade[0] );

@@ -72,7 +72,7 @@ public class EstatisticaMedia {
 			}
 
 			List<String[]> linhas = new LinkedList<String[]>();
-			String[] colunas = new String[15];
+			String[] colunas = new String[Estatistica.COLUNAS.length];
 			StringBuilder buffer = new StringBuilder( 500 );
 			
 			NumberFormat nf = NumberFormat.getNumberInstance();

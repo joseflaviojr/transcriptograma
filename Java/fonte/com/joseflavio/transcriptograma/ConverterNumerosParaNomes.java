@@ -64,7 +64,7 @@ public class ConverterNumerosParaNomes {
 			File arquivo_numeros = new File( args[0] );
 			File arquivo_nomes   = new File( args[1] );
 			
-			int[] numeros = Ferramenta.carregarOrdem( arquivo_numeros );
+			short[] numeros = Ferramenta.carregarOrdem( arquivo_numeros );
 			List<String> nomes = Ferramenta.carregarNomes( arquivo_nomes );
 			
 			int total = numeros.length;

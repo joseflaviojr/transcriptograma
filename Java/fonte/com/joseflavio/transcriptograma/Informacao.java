@@ -42,17 +42,17 @@ package com.joseflavio.transcriptograma;
 import java.io.File;
 
 /**
- * Gera imagem de matriz de adjacências conforme ordenamento informado.
+ * Informações sobre uma matriz ordenada.
  * @author José Flávio de Souza Dias Júnior
  * @version 2015
  */
-public class GerarImagem {
+public class Informacao {
 
 	public static void main( String[] args ) {
 		
 		if( args.length < 2 || args[0].length() == 0 || args[1].length() == 0 ){
-			System.out.println( "Gera imagem de matriz de adjacências conforme ordenamento informado." );
-			System.out.println( GerarImagem.class.getSimpleName() + " <arquivo_matriz> <arquivo_ordem> [<nome_arquivo_imagem.png>]" );
+			System.out.println( "Informações sobre uma matriz ordenada." );
+			System.out.println( Informacao.class.getSimpleName() + " <arquivo_matriz> <arquivo_ordem>" );
 			System.exit( 1 );
 		}
 		
@@ -60,12 +60,33 @@ public class GerarImagem {
 			
 			File arquivo_matriz  = new File( args[0] );
 			File arquivo_ordem   = new File( args[1] );
-			File arquivo_imagem  = new File( arquivo_ordem.getParent(), args.length > 2 && args[2].length() > 0 ? args[2] : arquivo_ordem.getName() + ".png" );
 			
 			short[][] matriz = Ferramenta.carregarMatriz( arquivo_matriz );
 			short[] ordem    = Ferramenta.carregarOrdem( arquivo_ordem );
 			
-			Ferramenta.salvarImagem( matriz, ordem, arquivo_imagem );
+			int total = ordem.length;
+			boolean orientado = Ferramenta.grafoOrientado( matriz );
+			
+			short[] ordemNatural = new short[total];
+			for( int i = 0; i < total; i++ ) ordemNatural[i] = (short)( i + 1 );
+			
+			long[] dispersaoMinMax = Ferramenta.calcularDispersaoMinMax( matriz, orientado );
+			
+			System.out.println();
+			System.out.println( "Matriz: " + arquivo_matriz.getName() );
+			System.out.println( "Ordem:  " + arquivo_ordem.getName() );
+			System.out.println();
+			System.out.println( "Grafo orientado: " + ( orientado ? "Sim" : "Não" ) );
+			System.out.println( "Vértices: " + ordem.length );
+			System.out.println( "Arestas:  " + dispersaoMinMax[2] );
+			System.out.println();
+			System.out.println( "Dispersão inicial: " + Ferramenta.calcularDispersao( matriz, ordemNatural, orientado ) );
+			System.out.println( "Dispersão final:   " + Ferramenta.calcularDispersao( matriz, ordem, orientado ) );
+			System.out.println( "Dispersão mínima:  " + dispersaoMinMax[0] );
+			System.out.println( "Dispersão máxima:  " + dispersaoMinMax[1] );
+			System.out.println();
+			System.out.println( "Escada: " + Ferramenta.calcularEscada( matriz, ordem, orientado ) );
+			System.out.println();
 			
 		}catch( Exception e ){
 			e.printStackTrace();

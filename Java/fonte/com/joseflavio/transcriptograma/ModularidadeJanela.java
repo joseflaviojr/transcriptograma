@@ -61,9 +61,9 @@ public class ModularidadeJanela {
 			File arquivo_matriz = new File( args[0] );
 			File arquivo_ordem  = new File( args[1] );
 			
-			int[][] matriz  = Ferramenta.carregarMatriz( arquivo_matriz );
-			int[]   ordem   = Ferramenta.carregarOrdem( arquivo_ordem );
-			int     janela  = Integer.parseInt( args[2] );
+			short[][] matriz  = Ferramenta.carregarMatriz( arquivo_matriz );
+			short[]   ordem   = Ferramenta.carregarOrdem( arquivo_ordem );
+			int     janela    = Integer.parseInt( args[2] );
 			
 			int[] modularidade = Ferramenta.calcularModularidadeJanela( matriz, ordem, janela );
 			System.out.print( modularidade[0] );

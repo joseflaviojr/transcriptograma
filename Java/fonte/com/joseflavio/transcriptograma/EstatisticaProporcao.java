@@ -77,7 +77,7 @@ public class EstatisticaProporcao {
 			FileWriter     saida   = new FileWriter( new File( diretorio, "Proporcao.txt" ) );
 			
 			Map<String,String[]> resultadosCFM = new HashMap<String,String[]>( 1000 );
-			String[] colunas = new String[15];
+			String[] colunas = new String[Estatistica.COLUNAS.length];
 			StringBuilder buffer = new StringBuilder( 500 );
 			
 			NumberFormat nf = NumberFormat.getNumberInstance();
@@ -105,9 +105,12 @@ public class EstatisticaProporcao {
 					
 					colunas[3] = "CFM";
 					String chave_cfm = Ferramenta.concatenar( colunas, ";", 0, 4 );
+					String[] colunas_cfm = resultadosCFM.get( chave_cfm );
 					
-					String[] cfm = Arrays.copyOfRange( resultadosCFM.get( chave_cfm ), 5, 15 );
-					String[] xxx = Arrays.copyOfRange( colunas, 5, 15 );
+					if( colunas_cfm == null ) continue;
+					
+					String[] cfm = Arrays.copyOfRange( colunas_cfm, 5, Estatistica.COLUNAS.length );
+					String[] xxx = Arrays.copyOfRange( colunas, 5, Estatistica.COLUNAS.length );
 					
 					saida.write( chave_xxx );
 					saida.write( ";" );
