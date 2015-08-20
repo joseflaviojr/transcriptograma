@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+{% set svg_altura = 682 + ( series.size - 1 ) / 2 * 28 %}
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="988.75824"
+   height="{{ svg_altura }}"
+   viewBox="0 0 988.75824 {{ svg_altura }}"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="Referência.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.78684049"
+     inkscape:cx="500.73363"
+     inkscape:cy="341.23813"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1360"
+     inkscape:window-height="706"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     units="px"
+     borderlayer="false"
+     showguides="false"
+     inkscape:guide-bbox="true"
+     fit-margin-top="10"
+     fit-margin-left="10"
+     fit-margin-right="10"
+     fit-margin-bottom="10" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(7.9815254,-255.52719)">
+    <path
+       style="fill:#cccccc;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       d="M{{ janela }} Z"
+       id="janela" />
+    <path
+       style="fill:#828282;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       d="M{{ densidade }} Z"
+       id="densidade" />
+{% for serie in series %}
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#{{ serie.cor }};stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       d="M{{ serie.pontos }}"
+       id="serie{{ serie.numero }}" />
+{% endfor %}
+    <path
+       style="fill:#4d4d4d;fill-rule:evenodd;stroke:#4d4d4d;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       d="m 70,323 0,500"
+       id="linhav"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:label="#path3336" />
+    <path
+       style="fill:#4d4d4d;fill-rule:evenodd;stroke:#4d4d4d;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       d="M 70,823 970,823"
+       id="linhah"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:label="#path3340" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="520.2124"
+       y="288.32016"
+       id="titulo"
+       sodipodi:linespacing="125%"
+       inkscape:label="#text3346"><tspan
+         sodipodi:role="line"
+         x="520.2124"
+         y="288.32016"
+         id="tspan3372">{{ titulo }}</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:20px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-556.52332"
+       y="18.385662"
+       id="rotulov"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,-1,1,0,0,0)"
+       inkscape:label="#text3342-8"><tspan
+         sodipodi:role="line"
+         id="tspan3344-4"
+         x="-556.52332"
+         y="18.385662">{{ rotulov }}</tspan></text>
+    <path
+       style="fill:#4d4d4d;fill-rule:evenodd;stroke:#4d4d4d;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       d="m 70,573 -7.28365,0"
+       id="path3343-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="62.359547"
+       y="578.12848"
+       id="nivel2"
+       sodipodi:linespacing="125%"
+       inkscape:label="#text3345-5"><tspan
+         sodipodi:role="line"
+         id="tspan3347-3"
+         x="62.359547"
+         y="578.12848"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:end;writing-mode:lr-tb;text-anchor:end">{{ nivel2 }}</tspan></text>
+    <path
+       style="fill:#4d4d4d;fill-rule:evenodd;stroke:#4d4d4d;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       d="m 70,323 -7.28365,0"
+       id="path3343-6-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="61.693043"
+       y="329.07864"
+       id="nivel3"
+       sodipodi:linespacing="125%"
+       inkscape:label="#text3345-5-1"><tspan
+         sodipodi:role="line"
+         id="tspan3347-3-3"
+         x="61.693043"
+         y="329.07864"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:end;writing-mode:lr-tb;text-anchor:end">{{ nivel3 }}</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:20px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="518.99414"
+       y="850.02161"
+       id="rotuloh"
+       sodipodi:linespacing="125%"
+       inkscape:label="#text3342"><tspan
+         sodipodi:role="line"
+         id="tspan3344"
+         x="518.99414"
+         y="850.02161"
+         style="text-align:center;text-anchor:middle">{{ rotuloh }}</tspan></text>
+    <path
+       style="fill:#4d4d4d;fill-rule:evenodd;stroke:#4d4d4d;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       d="m 70,823 -7.28365,0"
+       id="path3343"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="62.725758"
+       y="828.58984"
+       id="nivel1"
+       sodipodi:linespacing="125%"
+       inkscape:label="#text3345"><tspan
+         sodipodi:role="line"
+         id="tspan3347"
+         x="62.725758"
+         y="828.58984"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:end;writing-mode:lr-tb;text-anchor:end">{{ nivel1 }}</tspan></text>
+    <rect
+       style="fill:#cccccc;stroke:none;stroke-width:2;stroke-miterlimit:10;stroke-dasharray:none"
+       id="legenda_modjan"
+       width="49.16201"
+       height="19.366854"
+       x="86"
+       y="880"
+       inkscape:label="#rect4169" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="144"
+       y="895"
+       id="legenda_modjan_rotulo"
+       sodipodi:linespacing="125%"
+       inkscape:label="#text4171"><tspan
+         sodipodi:role="line"
+         id="tspan4173"
+         x="144"
+         y="895"
+         style="font-size:17.5px">{{ modjanela }}</tspan></text>
+    <rect
+       y="880"
+       x="530"
+       height="19.366854"
+       width="49.16201"
+       id="legenda_modden"
+       style="fill:#828282;stroke:none;stroke-width:2;stroke-miterlimit:10;stroke-dasharray:none"
+       inkscape:label="#rect4175" />
+    <text
+       sodipodi:linespacing="125%"
+       id="legenda_modden_rotulo"
+       y="895"
+       x="588"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"
+       inkscape:label="#text4177"><tspan
+         style="font-size:17.5px"
+         y="895"
+         x="588"
+         id="tspan4179"
+         sodipodi:role="line">{{ moddensidade }}</tspan></text>
+
+{% set legesq_x = 86 %}
+{% set legesq_y = 917 %}
+
+{% set legdir_x = 530 %}
+{% set legdir_y = 917 %}
+
+{% set esquerda = true %}
+
+{% for serie in series %}
+  {% if( esquerda ) %}
+    {% set legx = legesq_x %}
+    {% set legy = legesq_y %}
+  {% else %}
+    {% set legx = legdir_x %}
+    {% set legy = legdir_y %}
+  {% endif %}
+    <rect
+       x="{{ legx }}"
+       y="{{ legy }}"
+       height="5"
+       width="49.16201"
+       id="legenda_serie{{ serie.numero }}"
+       style="fill:#{{ serie.cor }};stroke:none;stroke-width:2;stroke-miterlimit:10;stroke-dasharray:none"
+       inkscape:label="#rect4181" />
+    <text
+       sodipodi:linespacing="125%"
+       id="legenda_serie{{ serie.numero }}_rotulo"
+       x="{{ legx + 58 }}"
+       y="{{ legy + 7 }}"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"
+       inkscape:label="#text4183"><tspan
+         style="font-size:17.5px"
+         x="{{ legx + 58 }}"
+         y="{{ legy + 7 }}"
+         id="tspan4185"
+         sodipodi:role="line">{{ transcriptograma }} {{ serie.numero }}</tspan></text>
+  {% if( esquerda ) %}
+    {% set legesq_y = legesq_y + 28 %}
+  {% else %}
+    {% set legdir_y = legdir_y + 28 %}
+  {% endif %}
+  {% set esquerda = not esquerda %}
+{% endfor %}
+  </g>
+</svg>

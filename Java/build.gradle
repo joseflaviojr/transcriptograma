@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'maven'
 apply plugin: 'eclipse'
 
 group = 'com.joseflavio'
@@ -13,12 +14,14 @@ sourceSets {
     main.resources.srcDirs = ['recurso']
 }
 
-jar {
+task jarDist(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Transcriptograma',
                    'Implementation-Version': version,
                    'Main-Class': ''
     }
+    from { configurations.compile.collect{ it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 task jarFonte(type: Jar) {
@@ -42,6 +45,10 @@ repositories {
     flatDir {
        dirs 'biblioteca'
    }
+}
+
+dependencies {
+    compile 'com.lyncode:jtwig-core:3.1.1'
 }
 
 eclipse {
