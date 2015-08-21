@@ -62,7 +62,7 @@ import com.lyncode.jtwig.resource.JtwigResource;
  */
 public class GraficoTranscriptograma {
 	
-	private static final String[] COR = {
+	public static final String[] CORES = {
 		"000000", "FF0000", "0000FF", "00FF00",
 		"800080", "FFFF00", "008080", "800000",
 		"00FFFF", "808000", "FF00FF", "000080",
@@ -169,7 +169,7 @@ public class GraficoTranscriptograma {
 			
 			int cor = 0;
 			for( Serie serie : series ){
-				serie.cor = cor < COR.length ? COR[cor++] : "000000";
+				serie.cor = cor < CORES.length ? CORES[cor++] : "000000";
 			}
 
 			//---------------------------------------
