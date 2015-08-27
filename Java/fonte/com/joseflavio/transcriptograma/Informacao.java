@@ -64,21 +64,23 @@ public class Informacao {
 			short[][] matriz = Ferramenta.carregarMatriz( arquivo_matriz );
 			short[] ordem    = Ferramenta.carregarOrdem( arquivo_ordem );
 			
-			int total = ordem.length;
+			int vertices = ordem.length;
 			boolean orientado = Ferramenta.grafoOrientado( matriz );
 			
-			short[] ordemNatural = new short[total];
-			for( int i = 0; i < total; i++ ) ordemNatural[i] = (short)( i + 1 );
+			short[] ordemNatural = new short[vertices];
+			for( int i = 0; i < vertices; i++ ) ordemNatural[i] = (short)( i + 1 );
 			
 			long[] dispersaoMinMax = Ferramenta.calcularDispersaoMinMax( matriz, orientado );
+			long   arestas         = dispersaoMinMax[2];
 			
 			System.out.println();
 			System.out.println( "Matriz: " + arquivo_matriz.getName() );
 			System.out.println( "Ordem:  " + arquivo_ordem.getName() );
 			System.out.println();
 			System.out.println( "Grafo orientado: " + ( orientado ? "Sim" : "Não" ) );
-			System.out.println( "Vértices: " + ordem.length );
-			System.out.println( "Arestas:  " + dispersaoMinMax[2] );
+			System.out.println( "Vértices: " + vertices );
+			System.out.println( "Arestas:  " + arestas  );
+			System.out.println( "Arestas/Vértices:  " + ( arestas / (float) vertices ) );
 			System.out.println();
 			System.out.println( "Dispersão inicial: " + Ferramenta.calcularDispersao( matriz, ordemNatural, orientado ) );
 			System.out.println( "Dispersão final:   " + Ferramenta.calcularDispersao( matriz, ordem, orientado ) );

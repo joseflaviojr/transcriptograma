@@ -81,7 +81,7 @@ public class SepararModulosColoridos {
 			NumberFormat nf = NumberFormat.getIntegerInstance();
 			nf.setMinimumIntegerDigits( 3 );
 			
-			FileWriter saida = new FileWriter( new File( arq_genes.getParentFile(), prefixo + nf.format( modulo++ ) + ".txt" ) );
+			FileWriter saida = new FileWriter( new File( arq_cores.getParentFile(), prefixo + nf.format( modulo++ ) + ".txt" ) );
 			
 			BufferedReader genes = new BufferedReader( new FileReader( arq_genes ) );
 			try{
@@ -97,7 +97,7 @@ public class SepararModulosColoridos {
 					if( cor_nova != cor ){
 						cor = cor_nova;
 						saida.close();
-						saida = new FileWriter( new File( arq_genes.getParentFile(), prefixo + nf.format( modulo++ ) + ".txt" ) );
+						saida = new FileWriter( new File( arq_cores.getParentFile(), prefixo + nf.format( modulo++ ) + ".txt" ) );
 					}
 					saida.write( gene + "\n" );
 				}

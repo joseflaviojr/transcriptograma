@@ -37,66 +37,6 @@
 #  junto com Transcriptograma. Se não, veja <http://www.gnu.org/licenses/>.
 #
 
-library(stats)
-library(grDevices)
-library(tcltk)
+source(paste(Sys.getenv("TRANSCRIPTOGRAMA"),"Transcriptograma.R",sep=.Platform$file.sep))
 
-DESTAQUE <- "LOCAL"
-GARANTIA <- 4
-FUNCOES <- 50
-
-arquivo <- tk_choose.files(
-	default = getwd(),
-	caption = "Selecione a matriz geral de p-values...",
-	multi=FALSE,
-	filters=matrix(c("Texto", ".txt", "CSV", ".csv", "Todos", "*"), 3, 2, byrow=TRUE)
-)
-
-m <- read.csv(arquivo, sep="\t")
-m <- cbind(m,0)
-linhas <- nrow(m)
-colunas <- ncol(m)
-
-if( DESTAQUE == "GLOBAL" ){
-	for( i in 1:linhas ){
-		for( j in 3:(colunas-1) ){
-			if( ! is.na(m[i,j]) ) m[i,colunas] <- m[i,colunas] + m[i,j]
-		}
-	}
-}else{
-	for( j in 3:(colunas-1) ){
-		m <- m[order(m[,j]),]
-		for( i in 1:GARANTIA ){
-			if( ! is.na(m[i,j]) ) m[i,colunas] <- -Inf
-		}
-		for( i in (GARANTIA+1):linhas ){
-			if( ! is.na(m[i,j]) ) m[i,colunas] <- ( m[i,colunas] + i ) / 2
-		}
-	}
-}
-
-m <- m[order(m[,colunas]),]
-m2 <- data.matrix( m[ 1:FUNCOES, 3:(colunas-1) ] )
-
-row.names(m2) <- m[1:FUNCOES,2]
-for( i in 1:FUNCOES ){
-	texto <- row.names(m2)[i]
-	if( nchar(texto) > 70 ){
-		row.names(m2)[i] <- paste(substr(texto,1,67),"...",sep="")
-	}
-}
-
-rotulos <- c()
-for( i in 1:ncol(m2) ) rotulos <- c(rotulos, paste("M",formatC(i,width=2,flag="0"),sep=""))
-colnames(m2) <- rotulos
-
-png(
-	file=paste(substr(arquivo,1,nchar(arquivo)-4),".png",sep=""),
-	width=4096,
-	height=2048,
-	res=300,
-	pointsize=14
-)
-
-heatmap(m2, Rowv=NA, Colv=NA, col=gray.colors(256,0), scale="none", main=NA, xlab=NA, ylab=NA)
-dev.off()
+gerarHeatmap()

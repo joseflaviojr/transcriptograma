@@ -94,7 +94,7 @@ public class GraficoTranscriptograma {
 			System.out.println( "<mod_janela>       : Arquivo gerado por ModularidadeJanela.sh" );
 			System.out.println( "<mod_densidade>    : Arquivo gerado por ModularidadeDensidade.sh" );
 			System.out.println( "<transcriptograma> : Arquivo gerado por Transcriptograma.sh" );
-			System.out.println( "<series>           : \"1,2,3,...\" ou \"0\" para todas" );
+			System.out.println( "<series>           : \"1,2,3-7,...\" ou \"0\" para todas" );
 			System.out.println( "<saida.svg>        : Saída no formato Scalable Vector Graphics" );
 			System.exit( 1 );
 		}
@@ -161,8 +161,17 @@ public class GraficoTranscriptograma {
 			if( ! series_param.equals( "0" ) ){
 				List<Serie> series_sel = new ArrayList<Serie>();
 				for( String s : series_param.split( "," ) ){
-					Serie serie = series.get( Integer.parseInt( s ) - 1 );
-					series_sel.add( serie );
+					if( s.contains( "-" ) ){
+						String[] parte = s.split( "-" );
+						int inicio = Integer.parseInt( parte[0].trim() ) - 1;
+						int fim    = Integer.parseInt( parte[1].trim() ) - 1;
+						for( int i = inicio; i <= fim; i++ ){
+							series_sel.add( series.get( i ) );
+						}
+					}else{
+						Serie serie = series.get( Integer.parseInt( s.trim() ) - 1 );
+						series_sel.add( serie );
+					}
 				}
 				series = series_sel;
 			}
@@ -248,6 +257,8 @@ public class GraficoTranscriptograma {
 			jmm.add( "nivel1", nfrotulo.format( menorValor ) );
 			jmm.add( "nivel2", nfrotulo.format( ( menorValor + maiorValor ) / 2f ) );
 			jmm.add( "nivel3", nfrotulo.format( maiorValor ) );
+			
+			jmm.add( "totalgenes", total );
 
 			//---------------------------------------
 			
