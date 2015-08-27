@@ -195,7 +195,7 @@ enriquecer <- function( anotacao="org.Hs.eg.db", ontologia="MF",
 # classificacao: método de classificação das linhas (ordem) = "LOCAL" ou "GLOBAL".
 # garantia: no caso de "LOCAL", garante a posição dos "n" primeiros com menor valor.
 # maximo: quantidade máxima de linhas no heat map
-gerarHeatmap <- function( arquivo=NULL, classificacao="LOCAL", garantia=4, maximo=50,
+gerarHeatmap <- function( arquivo=NULL, rotulo="M", classificacao="LOCAL", garantia=4, maximo=50,
 						  largura=4096, altura=2048, resolucao=300, fonteTamanho=14 ){
 
 	library(stats)
@@ -222,13 +222,6 @@ gerarHeatmap <- function( arquivo=NULL, classificacao="LOCAL", garantia=4, maxim
 	colunas <- ncol(m)
 
 	if( maximo > linhas ) maximo <- linhas
-
-	# for( i in 1:linhas ){
-	# 	for( j in 1:colunas ){
-	# 		print(is.na(m[i,j]))
-	# 		if( m[i,j] == "NA" ) m[i,j] <- NA
-	# 	}
-	# }
 
 	if( classificacao == "GLOBAL" ){
 
@@ -270,7 +263,7 @@ gerarHeatmap <- function( arquivo=NULL, classificacao="LOCAL", garantia=4, maxim
 	}
 
 	rotulos <- c()
-	for( i in 1:ncol(m2) ) rotulos <- c(rotulos, paste("M",formatC(i,width=2,flag="0"),sep=""))
+	for( i in 1:ncol(m2) ) rotulos <- c(rotulos, paste(rotulo,formatC(i,width=2,flag="0"),sep=""))
 	colnames(m2) <- rotulos
 
 	png(
