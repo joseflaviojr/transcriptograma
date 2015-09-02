@@ -298,9 +298,8 @@ public class Ferramenta {
 	public static long[] calcularDispersaoMinMax( short[][] matriz, boolean orientado ) {
 		
 		long resultado[] = { 0, 0, 0 };
-		short arestas = 0;
-		int total = matriz[0].length;
-		int i, j, a;
+		long a, arestas = 0;
+		int  i, j, total = matriz[0].length;
 
 		for( i = 0; i < total; i++ ){
 			for( j = 0; j < total; j++ ){

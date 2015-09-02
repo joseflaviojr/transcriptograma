@@ -42,7 +42,7 @@ package com.joseflavio.transcriptograma;
 import java.io.File;
 
 /**
- * Informações sobre uma matriz ordenada.
+ * Informações sobre uma matriz de adjacências.
  * @author José Flávio de Souza Dias Júnior
  * @version 2015
  */
@@ -50,44 +50,55 @@ public class Informacao {
 
 	public static void main( String[] args ) {
 		
-		if( args.length < 2 || args[0].length() == 0 || args[1].length() == 0 ){
-			System.out.println( "Informações sobre uma matriz ordenada." );
-			System.out.println( Informacao.class.getSimpleName() + " <arquivo_matriz> <arquivo_ordem>" );
+		if( args.length < 1 || args[0].length() == 0 ){
+			System.out.println( "Informações sobre uma matriz de adjacências." );
+			System.out.println( Informacao.class.getSimpleName() + " <arquivo_matriz> [<arquivo_ordem>]" );
 			System.exit( 1 );
 		}
 		
 		try{
 			
 			File arquivo_matriz  = new File( args[0] );
-			File arquivo_ordem   = new File( args[1] );
+			File arquivo_ordem   = args.length > 1 ? new File( args[1] ) : null;
 			
 			short[][] matriz = Ferramenta.carregarMatriz( arquivo_matriz );
-			short[] ordem    = Ferramenta.carregarOrdem( arquivo_ordem );
+			short[] ordem    = arquivo_ordem != null ? Ferramenta.carregarOrdem( arquivo_ordem ) : new short[ matriz[0].length ];
 			
 			int vertices = ordem.length;
 			boolean orientado = Ferramenta.grafoOrientado( matriz );
 			
 			short[] ordemNatural = new short[vertices];
-			for( int i = 0; i < vertices; i++ ) ordemNatural[i] = (short)( i + 1 );
+			for( int i = 0; i < vertices; i++ ){
+				ordemNatural[i] = (short)( i + 1 );
+			}
+			
+			if( arquivo_ordem == null ){
+				System.arraycopy( ordemNatural, 0, ordem, 0, vertices );
+			}
 			
 			long[] dispersaoMinMax = Ferramenta.calcularDispersaoMinMax( matriz, orientado );
 			long   arestas         = dispersaoMinMax[2];
 			
+			long Di   = Ferramenta.calcularDispersao( matriz, ordemNatural, orientado );
+			long Df   = Ferramenta.calcularDispersao( matriz, ordem, orientado );
+			long Dmin = dispersaoMinMax[0];
+			long Dmax = dispersaoMinMax[1];
+			
 			System.out.println();
 			System.out.println( "Matriz: " + arquivo_matriz.getName() );
-			System.out.println( "Ordem:  " + arquivo_ordem.getName() );
+			System.out.println( "Ordem:  " + ( arquivo_ordem != null ? arquivo_ordem.getName() : "Natural" ) );
 			System.out.println();
 			System.out.println( "Grafo orientado: " + ( orientado ? "Sim" : "Não" ) );
 			System.out.println( "Vértices: " + vertices );
 			System.out.println( "Arestas:  " + arestas  );
 			System.out.println( "Arestas/Vértices:  " + ( arestas / (float) vertices ) );
 			System.out.println();
-			System.out.println( "Dispersão inicial: " + Ferramenta.calcularDispersao( matriz, ordemNatural, orientado ) );
-			System.out.println( "Dispersão final:   " + Ferramenta.calcularDispersao( matriz, ordem, orientado ) );
-			System.out.println( "Dispersão mínima:  " + dispersaoMinMax[0] );
-			System.out.println( "Dispersão máxima:  " + dispersaoMinMax[1] );
-			System.out.println();
-			System.out.println( "Escada: " + Ferramenta.calcularEscada( matriz, ordem, orientado ) );
+			System.out.println( "Dispersão inicial (Di)  : " + Di );
+			System.out.println( "Dispersão final   (Df)  : " + Df );
+			System.out.println( "Dispersão mínima  (Dmin): " + Dmin );
+			System.out.println( "Dispersão máxima  (Dmax): " + Dmax );
+			System.out.println( "Redução local           : " + ( ( 1f - Df / (float) Di ) * 100f ) + " %   1-Df/Di" );
+			System.out.println( "Redução global          : " + ( ( 1f - ( Df - Dmin ) / (float)( Dmax - Dmin ) ) * 100f ) + " %   1-(Df-Dmin)/(Dmax-Dmin)" );
 			System.out.println();
 			
 		}catch( Exception e ){

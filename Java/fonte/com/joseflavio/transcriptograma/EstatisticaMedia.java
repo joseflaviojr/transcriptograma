@@ -102,17 +102,11 @@ public class EstatisticaMedia {
 				
 				medias.add( separador );
 				
-				medias.add( new MediaAlgoritmoOrientacao( coluna, "CFM", 'N', 100 ) );
-				medias.add( new MediaAlgoritmoOrientacao( coluna, "CLA", 'N', 100 ) );
-				medias.add( new MediaAlgoritmoOrientacao( coluna, "DEM", 'N', 100 ) );
-				
-				medias.add( new MediaAlgoritmoOrientacao( coluna, "CFM", 'N', 200 ) );
-				medias.add( new MediaAlgoritmoOrientacao( coluna, "CLA", 'N', 200 ) );
-				medias.add( new MediaAlgoritmoOrientacao( coluna, "DEM", 'N', 200 ) );
-				
-				medias.add( new MediaAlgoritmoOrientacao( coluna, "CFM", 'N', 300 ) );
-				medias.add( new MediaAlgoritmoOrientacao( coluna, "CLA", 'N', 300 ) );
-				medias.add( new MediaAlgoritmoOrientacao( coluna, "DEM", 'N', 300 ) );
+				for( int tamanho = 100; tamanho <= 1000; tamanho += 100 ){
+					medias.add( new MediaAlgoritmoOrientacao( coluna, "CFM", 'N', tamanho ) );
+					medias.add( new MediaAlgoritmoOrientacao( coluna, "CLA", 'N', tamanho ) );
+					medias.add( new MediaAlgoritmoOrientacao( coluna, "DEM", 'N', tamanho ) );
+				}
 				
 				medias.add( separador );
 				
@@ -155,7 +149,7 @@ public class EstatisticaMedia {
 				
 				medias.add( separador );
 				
-				for( int tamanho = 0; tamanho <= 300; tamanho += 100 ){
+				for( int tamanho = 100; tamanho <= 1000; tamanho += 100 ){
 				
 					medias.add( new MediaRedeAlgoritmo( coluna, "RAL-N", "CFM", tamanho ) );
 					medias.add( new MediaRedeAlgoritmo( coluna, "RAL-O", "CFM", tamanho ) );

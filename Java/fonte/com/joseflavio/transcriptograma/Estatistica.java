@@ -57,8 +57,8 @@ public class Estatistica {
 	public static final String[] COLUNAS = {
 		"Experimento", "Rede", "Tamanho", "Algoritmo",
 		"Execucao", "Dispersao", "TempoUltimaMelhoria", "Dispersao/TempoUltimaMelhoria",
-		"%Reducao", "%Reducao/TempoUltimaMelhoria", "TempoReducao10%", "Mensuracoes",
-		"Mudancas", "MudancasDesfeitas", "Melhorias", "DispersaoMin", "DispersaoMax", "Arestas", "Escada" };
+		"%ReducaoLocal", "%ReducaoLocal/TempoUltimaMelhoria", "TempoReducaoLocal10%", "Mensuracoes",
+		"Mudancas", "MudancasDesfeitas", "Melhorias", "DispersaoMin", "DispersaoMax", "Arestas", "%ReducaoGlobal" };
 
 	public static void main( String[] args ) {
 		
@@ -183,18 +183,18 @@ public class Estatistica {
 		/* --------------- */
 		
 		if( tempo == 0 ) tempo = 1;
-		saida.write( "" + (int)( (double) dispersaoFinal / tempo ) );
+		saida.write( "" + (int)( dispersaoFinal / (float) tempo ) );
 		saida.write( ";" );
 		
 		/* --------------- */
 		
-		double reducao = (double)( dispersaoInicial - dispersaoFinal ) / dispersaoInicial * 100;
-		saida.write( nf.format( reducao ) );
+		float reducaoLocal = ( 1f - dispersaoFinal / (float) dispersaoInicial ) * 100f;
+		saida.write( nf.format( reducaoLocal ) );
 		saida.write( ";" );
 		
 		/* --------------- */
 		
-		saida.write( nf.format( reducao / tempo ) );
+		saida.write( nf.format( reducaoLocal / tempo ) );
 		saida.write( ";" );
 		
 		/* --------------- */
@@ -223,10 +223,13 @@ public class Estatistica {
 		
 		/* --------------- */
 		
+		long dispersaoMin = dispersaoMinMax[0];
+		long dispersaoMax = dispersaoMinMax[1];
+		
 		saida.write( ";" );
-		saida.write( "" + dispersaoMinMax[0] );
+		saida.write( "" + dispersaoMin );
 		saida.write( ";" );
-		saida.write( "" + dispersaoMinMax[1] );
+		saida.write( "" + dispersaoMax );
 		
 		/* --------------- */
 		
@@ -236,7 +239,8 @@ public class Estatistica {
 		/* --------------- */
 		
 		saida.write( ";" );
-		saida.write( "" + Ferramenta.calcularEscada( matriz, Ferramenta.carregarOrdem( arquivoOrdem ), Ferramenta.grafoOrientado( matriz ) ) );
+		float reducaoGlobal = ( 1f - ( dispersaoFinal - dispersaoMin ) / (float)( dispersaoMax - dispersaoMin ) ) * 100f;
+		saida.write( nf.format( reducaoGlobal ) );
 		
 		/* --------------- */
 		
