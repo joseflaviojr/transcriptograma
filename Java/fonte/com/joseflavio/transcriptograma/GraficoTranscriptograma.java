@@ -63,19 +63,13 @@ import com.lyncode.jtwig.resource.JtwigResource;
 public class GraficoTranscriptograma {
 	
 	public static final String[] CORES = {
-		"000000", "FF0000", "0000FF", "00FF00",
-		"800080", "FFFF00", "008080", "800000",
-		"00FFFF", "808000", "FF00FF", "000080",
-		"008000", "808080", "C0C0C0", "B8860B",
-		"CD5C5C", "4682B4", "FF4500", "FF1493",
-		"20B2AA", "BDB76B", "2F4F4F", "CD6090",
-		"8B8B00", "551A8B", "90EE90", "FA8072",
-		"FF6347", "20B2AA", "FF7F50", "483D8B",
-		"696969", "4B0082", "00CED1", "191970",
-		"FF8C00", "8FBC8F", "BC8F8F", "1E90FF",
-		"DAA520", "48D1CC", "E9967A", "9ACD32",
-		"DA70D6", "7CFC00", "C71585", "6B8E23",
-		"DC143C", "B22222", "D2691E", "F0E68C"
+		"000000", "FF0000", "0000FF", "00FF00", "800080", "FFFF00", "008080", "800000",
+		"808000", "FF00FF", "000080", "008000", "808080", "C0C0C0", "B8860B", "CD5C5C",
+		"4682B4", "FF4500", "FF1493", "20B2AA", "BDB76B", "2F4F4F", "CD6090", "8B8B00",
+		"551A8B", "90EE90", "FA8072", "FF6347", "20B2AA", "FF7F50", "483D8B", "696969",
+		"4B0082", "00CED1", "191970", "FF8C00", "8FBC8F", "BC8F8F", "1E90FF", "DAA520",
+		"48D1CC", "E9967A", "9ACD32", "DA70D6", "7CFC00", "C71585", "6B8E23", "DC143C",
+		"B22222", "D2691E", "F0E68C", "00FFFF"
 	};
 
 	public static void main( String[] args ) {
