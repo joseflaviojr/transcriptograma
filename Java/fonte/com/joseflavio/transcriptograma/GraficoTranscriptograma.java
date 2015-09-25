@@ -44,6 +44,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,11 +85,12 @@ public class GraficoTranscriptograma {
 		
 		if( args.length < 5 || ! argumentosOK ){
 			System.out.println( "Gera gráfico com transcriptogramas e modularidades." );
-			System.out.println( GraficoTranscriptograma.class.getSimpleName() + " <mod_janela> <mod_densidade> <transcriptograma> <series> <saida.svg>" );
+			System.out.println( GraficoTranscriptograma.class.getSimpleName() + " <mod_janela> <mod_densidade> <transcriptograma> <series> [<legenda>] <saida.svg>" );
 			System.out.println( "<mod_janela>       : Arquivo gerado por ModularidadeJanela.sh" );
 			System.out.println( "<mod_densidade>    : Arquivo gerado por ModularidadeDensidade.sh" );
 			System.out.println( "<transcriptograma> : Arquivo gerado por Transcriptograma.sh" );
 			System.out.println( "<series>           : \"1,2,3-7,...\" ou \"0\" para todas" );
+			System.out.println( "<legenda>          : Arquivo do qual as linhas definem a legenda" );
 			System.out.println( "<saida.svg>        : Saída no formato Scalable Vector Graphics" );
 			System.exit( 1 );
 		}
@@ -101,10 +103,20 @@ public class GraficoTranscriptograma {
 			File   arquivo_mod_densidade    = new File( args[1] );
 			File   arquivo_transcriptograma = new File( args[2] );
 			String series_param             =           args[3]  ;
-			File   arquivo_svg              = new File( args[4] );
+			File   arquivo_legenda          = null;
+			File   arquivo_svg              = null;
+			
+			if( args.length > 5 ){
+				arquivo_legenda = new File( args[4] );
+				arquivo_svg     = new File( args[5] );
+			}else{
+				arquivo_svg     = new File( args[4] );
+			}
 			
 			short[] mod_jan = Ferramenta.carregarOrdem( arquivo_mod_janela );
 			short[] mod_den = Ferramenta.carregarOrdem( arquivo_mod_densidade );
+			
+			List<String> legendas = arquivo_legenda != null ? Files.readAllLines( arquivo_legenda.toPath() ) : null;
 			
 			List<Serie> series = new ArrayList<Serie>();
 			
@@ -120,6 +132,35 @@ public class GraficoTranscriptograma {
 			
 			//---------------------------------------
 			
+			JtwigModelMap jmm = new JtwigModelMap();
+			
+			Locale local = Locale.getDefault();
+			
+			if( local.getLanguage().equals( new Locale( "pt" ) ) ){
+				jmm.add( "titulo", "Transcriptogramas" );
+				jmm.add( "rotulov", "Nível de expressão" );
+				jmm.add( "rotuloh", "Genes ordenados" );
+				jmm.add( "transcriptograma", "Transcriptograma" );
+				jmm.add( "modjanela", "Modularidade por Janela" );
+				jmm.add( "moddensidade", "Modularidade por Densidade" );
+			}else if( local.getLanguage().equals( new Locale( "fr" ) ) ){
+				jmm.add( "titulo", "Transcriptograms" );
+				jmm.add( "rotulov", "Niveau d'expression" );
+				jmm.add( "rotuloh", "Gènes triés" );
+				jmm.add( "transcriptograma", "Transcriptogram" );
+				jmm.add( "modjanela", "Modularité Fenêtre" );
+				jmm.add( "moddensidade", "Modularité Densité" );
+			}else{
+				jmm.add( "titulo", "Transcriptograms" );
+				jmm.add( "rotulov", "Expression level" );
+				jmm.add( "rotuloh", "Ordered genes" );
+				jmm.add( "transcriptograma", "Transcriptogram" );
+				jmm.add( "modjanela", "Window Modularity" );
+				jmm.add( "moddensidade", "Density Modularity" );
+			}
+			
+			//---------------------------------------
+			
 			BufferedReader entrada = new BufferedReader( new FileReader( arquivo_transcriptograma ) );
 			
 			try{
@@ -128,7 +169,11 @@ public class GraficoTranscriptograma {
 				String[] colunas = entrada.readLine().split( "\t" );
 				
 				for( int i = 1; i < colunas.length; i++ ){
-					Serie s = new Serie( i );
+					String legenda =
+							legendas != null && i <= legendas.size() ?
+							legendas.get(i-1) :
+							jmm.get( "transcriptograma" ).toString() + " " + i;
+					Serie s = new Serie( i, legenda );
 					float v = nfingles.parse( colunas[i] ).floatValue();
 					if( v > maiorValor ) maiorValor = v;
 					if( v < menorValor ) menorValor = v;
@@ -221,39 +266,12 @@ public class GraficoTranscriptograma {
 
 			//---------------------------------------
 			
-			JtwigModelMap jmm = new JtwigModelMap();
-			
-			Locale local = Locale.getDefault();
-			
-			if( local.getLanguage().equals( new Locale( "pt" ) ) ){
-				jmm.add( "titulo", "Transcriptogramas" );
-				jmm.add( "rotulov", "Nível de expressão" );
-				jmm.add( "rotuloh", "Genes ordenados" );
-				jmm.add( "transcriptograma", "Transcriptograma" );
-				jmm.add( "modjanela", "Modularidade por Janela" );
-				jmm.add( "moddensidade", "Modularidade por Densidade" );
-			}else if( local.getLanguage().equals( new Locale( "fr" ) ) ){
-				jmm.add( "titulo", "Transcriptograms" );
-				jmm.add( "rotulov", "Niveau d'expression" );
-				jmm.add( "rotuloh", "Gènes triés" );
-				jmm.add( "transcriptograma", "Transcriptogram" );
-				jmm.add( "modjanela", "Modularité Fenêtre" );
-				jmm.add( "moddensidade", "Modularité Densité" );
-			}else{
-				jmm.add( "titulo", "Transcriptograms" );
-				jmm.add( "rotulov", "Expression level" );
-				jmm.add( "rotuloh", "Ordered genes" );
-				jmm.add( "transcriptograma", "Transcriptogram" );
-				jmm.add( "modjanela", "Window Modularity" );
-				jmm.add( "moddensidade", "Density Modularity" );
-			}
-			
 			jmm.add( "nivel1", nfrotulo.format( menorValor ) );
 			jmm.add( "nivel2", nfrotulo.format( ( menorValor + maiorValor ) / 2f ) );
 			jmm.add( "nivel3", nfrotulo.format( maiorValor ) );
 			
 			jmm.add( "totalgenes", total );
-
+			
 			//---------------------------------------
 			
 			StringBuffer sb = new StringBuffer( 1024 );
@@ -328,16 +346,23 @@ public class GraficoTranscriptograma {
 		
 		private int numero;
 		
+		private String legenda;
+		
 		private String cor;
 
 		private String pontos;
 		
-		private Serie( int numero ) {
+		private Serie( int numero, String legenda ) {
 			this.numero = numero;
+			this.legenda = legenda;
 		}
 		
 		public int getNumero() {
 			return numero;
+		}
+		
+		public String getLegenda() {
+			return legenda;
 		}
 		
 		public String getCor() {

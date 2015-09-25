@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="Referência.svg"
-   onclick="javascript:var total={{ totalgenes }}; var linhah=document.getElementById('linhah').getBoundingClientRect(); var x=( window.event.clientX - linhah.left ) * total / linhah.width + 1; document.getElementById('genenum').innerHTML = 'x ~ ' + ( x &gt; total ? total : x &gt; 0 ? Math.round(x) : 1 );">
+   onclick="javascript:var total={{ totalgenes }}; var janx=window.event.clientX; var jany=window.event.clientY; var linhah=document.getElementById('linhah').getBoundingClientRect(); var x=( janx - linhah.left ) * total / linhah.width + 1; document.getElementById('genenum').innerHTML = 'gene ~ ' + ( x &gt; total ? total : x &gt; 0 ? Math.round(x) : 1 ) + '   coord = ' + janx + ',' + jany;">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -168,9 +168,9 @@
          style="text-align:center;text-anchor:middle">{{ rotuloh }}</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:20px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="890.99414"
-       y="850.02161"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="780"
+       y="845"
        id="genenum"
        sodipodi:linespacing="125%"></text>
     <path
@@ -271,7 +271,7 @@
          x="{{ legx + 58 }}"
          y="{{ legy + 7 }}"
          id="tspan4185"
-         sodipodi:role="line">{{ transcriptograma }} {{ serie.numero }}</tspan></text>
+         sodipodi:role="line">{{ serie.legenda }}</tspan></text>
   {% if( esquerda ) %}
     {% set legesq_y = legesq_y + 28 %}
   {% else %}
