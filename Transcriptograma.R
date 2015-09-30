@@ -311,3 +311,59 @@ converterNomes <- function( entrada, saida, anotacao="org.Hs.eg.db", mapa="org.H
 }
 
 #----------------------------------------
+
+# Para o exemplo "1-3,8,9-11", retorna-se c(1,2,3,8,9,10,11)
+numeros <- function( valor ){
+    retorno <- c()
+    for( f in unlist(strsplit(valor, ",")) ){
+        g <- unlist(strsplit(f, "-"))
+        if( length(g) == 1 ){
+            retorno <- c(retorno,as.numeric(g))
+        }else{
+            inicio <- as.numeric(g[1])
+            fim    <- as.numeric(g[2])
+            for( x in inicio:fim ) retorno <- c(retorno,x)
+        }
+    }
+    retorno
+}
+
+#----------------------------------------
+
+# DEG - Differentially Expressed Gene
+#
+# entrada: arquivo de entrada (transcriptogramas)
+# saida: arquivo de saída (ranking dos genes)
+# controle: índices dos transcriptogramas do grupo de controle (ex.: "1-5,8,9-12")
+# alvo: índices dos transcriptogramas do grupo alvo (ex.: "13-21,25,29")
+calcularDEG <- function( entrada, saida, controle, alvo ){
+
+    if( ! "GeneSelector" %in% rownames(installed.packages()) ){
+        source("http://bioconductor.org/biocLite.R")
+        biocLite("GeneSelector")
+    }
+
+    library("GeneSelector")
+
+    tabela <- read.table(entrada)
+    genes  <- tabela[,1]
+    tabela <- tabela[,-1]
+    grupo1 <- numeros(controle)
+    grupo2 <- numeros(alvo)
+
+    tabcomp <- as.matrix(cbind(tabela[,grupo1],tabela[,grupo2]))
+    rownames(tabcomp)<- genes
+
+    classes   <- c(rep(1,length(grupo1)), rep(2,length(grupo2)))
+    welchT    <- RankingWelchT(tabcomp, classes, type="unpaired", gene.names=genes)
+    resultado <- toplist(welchT, top=length(genes))
+
+    resultado <- cbind(resultado,genes[resultado$index])
+    colnames(resultado) <- c("index","statistic","pvalue","gene")
+    rownames(resultado) <- resultado$gene
+
+    write.table( resultado, file=saida, sep="\t", quote=FALSE, col.names=TRUE, row.names=FALSE )
+
+}
+
+#----------------------------------------
