@@ -9,5 +9,5 @@ else
         anotacao="org.Sc.sgd.db"
         mapa="org.Sc.sgd"
     fi
-    echo "source('$TRANSCRIPTOGRAMA/Transcriptograma.R');converterNomes('$3','$4','$anotacao','$mapa$2');" | R -q --no-save
+    R -q --no-save -e "source('$TRANSCRIPTOGRAMA/Transcriptograma.R');converterNomes('$3','$4','$anotacao','$mapa$2');"
 fi

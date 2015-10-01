@@ -193,8 +193,12 @@ enriquecer <- function( anotacao="org.Hs.eg.db", ontologia="MF",
 # Coluna N = n-ésimo valor da linha
 #
 # classificacao: método de classificação das linhas (ordem) = "LOCAL" ou "GLOBAL".
-# garantia: no caso de "LOCAL", garante a posição dos "n" primeiros com menor valor.
-# maximo: quantidade máxima de linhas no heat map
+# garantia     : no caso de "LOCAL", garante a posição dos "n" primeiros com menor valor.
+# maximo       : quantidade máxima de linhas no heat map
+# largura      : largura da figura, em pixels
+# altura       : altura da figura, em pixels
+# resolucao    : resolução da figura, em ppi
+# fonteTamanho : tamanho da fonte na figura, em pontos
 gerarHeatmap <- function( arquivo=NULL, rotulo="M", classificacao="LOCAL", garantia=4, maximo=50,
 						  largura=4096, altura=2048, resolucao=300, fonteTamanho=14 ){
 
@@ -283,6 +287,51 @@ gerarHeatmap <- function( arquivo=NULL, rotulo="M", classificacao="LOCAL", garan
 
 #----------------------------------------
 
+# Heat map de matriz com valores numéricos.
+# entrada          : matriz ou arquivo CSV
+# cabecalhoColunas : contém cabeçalho das colunas na primeira linha?
+# cabecalhoLinhas  : contém cabeçalho das linhas na primeira coluna?
+# colunas          : colunas desejadas, sem considerar cabeçalho. Ex.: "1-10,15"
+# linhas           : linhas desejadas, sem considerar cabeçalho. Ex.: "1-10,15"
+# titulo           : título do heat map
+# rotulox          : rótulo do eixo x
+# rotuloy          : rótulo do eixo y
+# crescente        : Maior valor, maior temperatura?
+# coresTotal       : Total de cores (subdivisões do gradiente)
+gerarHeatmap2 <- function( entrada,	cabecalhoColunas=TRUE, cabecalhoLinhas=TRUE, colunas=NULL, linhas=NULL,
+	titulo=NULL, rotulox=NULL, rotuloy=NULL, crescente=TRUE, coresTotal=24 ){
+
+    if( ! "lattice" %in% rownames(installed.packages()) ){
+        install.packages("lattice", dependencies=TRUE)
+    }
+
+	library(grDevices)
+    library(lattice)
+
+	matriz <- matriz(entrada, cabecalhoColunas, cabecalhoLinhas)
+
+	if( ! is.null(colunas) ) matriz <- matriz[,numeros(colunas)]
+	if( ! is.null(linhas)  ) matriz <- matriz[numeros(linhas),]
+
+	if( crescente ) cores <- c("white","yellow","red","black")
+	else cores <- c("black","red","yellow","white")
+
+	levelplot(
+		matriz,
+		col.regions=colorRampPalette(cores,space="rgb")(coresTotal),
+		colorkey=TRUE,
+		contour=FALSE,
+		pretty=TRUE,
+		main=titulo,
+		xlab=rotulox,
+		ylab=rotuloy,
+		scales=list(x=list(rot=90))
+	)
+
+}
+
+#----------------------------------------
+
 # Converte nomes de genes.
 # Genes desconhecidos terão o marcador "#" no ínicio.
 #
@@ -326,6 +375,35 @@ numeros <- function( valor ){
         }
     }
     retorno
+}
+
+#----------------------------------------
+
+# matriz           : matriz ou arquivo CSV
+# cabecalhoColunas : contém cabeçalho das colunas na primeira linha?
+# cabecalhoLinhas  : contém cabeçalho das linhas na primeira coluna?
+matriz <- function( matriz, cabecalhoColunas=TRUE, cabecalhoLinhas=TRUE ){
+
+	if( is.null(nrow(matriz)) ){
+		matriz <- read.table(matriz, header=FALSE, blank.lines.skip=TRUE)
+	}
+
+	if( cabecalhoLinhas ){
+		rownames(matriz) <- matriz[,1]
+		matriz <- matriz[,-1]
+	}else{
+		rownames(matriz) <- 1:nrow(matriz)
+	}
+
+	if( cabecalhoColunas ){
+		colnames(matriz) <- matriz[1,]
+		matriz <- matriz[-1,]
+	}else{
+		colnames(matriz) <- 1:ncol(matriz)
+	}
+
+	as.matrix(matriz)
+
 }
 
 #----------------------------------------

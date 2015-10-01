@@ -12,5 +12,5 @@ if [ "$1" == "" ]; then
     echo "Coluna N = n-ésimo valor da linha"
     echo "maximo: quantidade máxima de linhas no heat map"
 else
-    echo "source('$TRANSCRIPTOGRAMA/Transcriptograma.R');gerarHeatmap(arquivo='$1',rotulo='$2',maximo=$3);" | R -q --no-save
+    R -q --no-save -e "source('$TRANSCRIPTOGRAMA/Transcriptograma.R');gerarHeatmap(arquivo='$1',rotulo='$2',maximo=$3);"
 fi

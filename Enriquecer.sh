@@ -10,5 +10,5 @@ else
     do
         arquivos="$arquivos,'${!c}'"
     done
-    echo "source('$TRANSCRIPTOGRAMA/Transcriptograma.R');enriquecer(anotacao='$anotacao',ontologia='$2',saida='$3',arquivos=c($arquivos));" | R -q --no-save
+    R -q --no-save -e "source('$TRANSCRIPTOGRAMA/Transcriptograma.R');enriquecer(anotacao='$anotacao',ontologia='$2',saida='$3',arquivos=c($arquivos));"
 fi
