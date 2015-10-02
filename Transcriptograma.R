@@ -451,15 +451,11 @@ matriz <- function( matriz, cabecalhoColunas=TRUE, cabecalhoLinhas=TRUE ){
 	if( cabecalhoLinhas ){
 		rownames(matriz) <- matriz[,1]
 		matriz <- matriz[,-1]
-	}else{
-		rownames(matriz) <- 1:nrow(matriz)
 	}
 
 	if( cabecalhoColunas ){
 		colnames(matriz) <- matriz[1,]
 		matriz <- matriz[-1,]
-	}else{
-		colnames(matriz) <- 1:ncol(matriz)
 	}
 
 	as.matrix(matriz)

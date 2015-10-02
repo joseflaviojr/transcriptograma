@@ -227,6 +227,28 @@ public class Ferramenta {
 		
 	}
 	
+	public static List<String> carregarLinhas( File arquivo ) throws IOException {
+	
+		BufferedReader entrada = new BufferedReader( new FileReader( arquivo ) );
+		int tamanhoEstimado = (int)( arquivo.length() / 30d );
+		
+		try{
+			
+			List<String> linhas = new ArrayList<String>( tamanhoEstimado );
+			
+			String linha;
+			while( ( linha = entrada.readLine() ) != null ){
+				linhas.add( linha );
+			}
+			
+			return linhas;
+			
+		}finally{
+			entrada.close();
+		}
+		
+	}
+	
 	/**
 	 * Imagem PNG da matriz ordenada.
 	 */

@@ -44,7 +44,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +115,7 @@ public class GraficoTranscriptograma {
 			short[] mod_jan = Ferramenta.carregarOrdem( arquivo_mod_janela );
 			short[] mod_den = Ferramenta.carregarOrdem( arquivo_mod_densidade );
 			
-			List<String> legendas = arquivo_legenda != null ? Files.readAllLines( arquivo_legenda.toPath() ) : null;
+			List<String> legendas = arquivo_legenda != null ? Ferramenta.carregarLinhas( arquivo_legenda ) : null;
 			
 			List<Serie> series = new ArrayList<Serie>();
 			
