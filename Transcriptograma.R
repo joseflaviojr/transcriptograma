@@ -298,7 +298,7 @@ gerarHeatmap <- function( arquivo=NULL, rotulo="M", classificacao="LOCAL", garan
 # rotuloy          : rótulo do eixo y
 # crescente        : Maior valor, maior temperatura?
 # coresTotal       : Total de cores (subdivisões do gradiente)
-gerarHeatmap2 <- function( entrada,	cabecalhoColunas=TRUE, cabecalhoLinhas=TRUE, colunas=NULL, linhas=NULL,
+gerarHeatmap2 <- function( entrada, cabecalhoColunas=TRUE, cabecalhoLinhas=TRUE, colunas=NULL, linhas=NULL,
 	titulo=NULL, rotulox=NULL, rotuloy=NULL, crescente=TRUE, coresTotal=24 ){
 
     if( ! "lattice" %in% rownames(installed.packages()) ){
@@ -326,6 +326,66 @@ gerarHeatmap2 <- function( entrada,	cabecalhoColunas=TRUE, cabecalhoLinhas=TRUE,
 		xlab=rotulox,
 		ylab=rotuloy,
 		scales=list(x=list(rot=90))
+	)
+
+}
+
+#----------------------------------------
+
+# Dendrograma de elementos especificados através de matriz de valores numéricos.
+# Os elementos do conjunto são dispostos em colunas.
+# entrada          : matriz ou arquivo CSV
+# cabecalhoColunas : contém cabeçalho das colunas na primeira linha?
+# cabecalhoLinhas  : contém cabeçalho das linhas na primeira coluna?
+# colunas          : colunas desejadas, sem considerar cabeçalho. Ex.: "1-10,15"
+# linhas           : linhas desejadas, sem considerar cabeçalho. Ex.: "1-10,15"
+# transpor         : considerar a matriz na forma transposta?
+# titulo           : título do dendrograma
+# rotulox          : rótulo do eixo x
+# rotuloy          : rótulo do eixo y
+# nomes            : lista ou arquivo CSV com os nomes de todas as colunas
+# vertical         : disposição do dendrograma na vertical?
+# distMetodo       : método para calcular a distância entre os elementos
+# hclustMetodo     : método de clusterização hierárquica
+gerarDendrograma <- function( entrada, cabecalhoColunas=TRUE, cabecalhoLinhas=TRUE,
+	colunas=NULL, linhas=NULL, transpor=FALSE,
+	titulo="", rotulox="", rotuloy="", nomes=NULL,
+	vertical=TRUE,	distMetodo="euclidean", hclustMetodo="average" ){
+
+	matriz <- matriz(entrada, cabecalhoColunas, cabecalhoLinhas)
+
+	if( ! is.null(nomes) ){
+		nomes <- matriz(nomes, FALSE, FALSE)
+		if( ncol(nomes) < nrow(nomes) ) nomes <- t(nomes)
+		if( ncol(nomes) != ncol(matriz) ) stop(paste("Quantidade de nomes desejada:",ncol(matriz)))
+		colnames(matriz) <- nomes
+	}
+
+	if( ! is.null(colunas) ) matriz <- matriz[,numeros(colunas)]
+	if( ! is.null(linhas)  ) matriz <- matriz[numeros(linhas),]
+
+	if( transpor ) matriz <- t(matriz)
+
+	total <- ncol(matriz)
+	
+	distancias <- matrix(0,total,total)
+	colnames(distancias) <- colnames(matriz)
+	rownames(distancias) <- colnames(matriz)
+
+	for( i in 1:total ){
+	    for( j in 1:total ){
+	        distancias[i,j] <- dist(t(cbind(matriz[,i],matriz[,j])), method=distMetodo)
+	    }
+	}
+
+	dendrograma <- as.dendrogram(hclust(as.dist(distancias), method=hclustMetodo))
+
+	plot(
+		dendrograma,
+		main=titulo,
+		xlab=rotulox,
+		ylab=rotuloy,
+		horiz=!vertical
 	)
 
 }
