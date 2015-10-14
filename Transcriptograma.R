@@ -404,7 +404,7 @@ converterNomes <- function( entrada, saida, anotacao="org.Hs.eg.db", mapa="org.H
 	library(anotacao, character.only=TRUE)
 	mapa <- get(mapa)
 
-	genes <- as.matrix( read.table(entrada, header=FALSE, blank.lines.skip=TRUE) )
+	genes <- as.matrix( read.table(entrada, header=FALSE, colClasses=c("character"), comment.char="", blank.lines.skip=TRUE) )
 	total <- length(genes)
 
 	for( i in 1:total ){
