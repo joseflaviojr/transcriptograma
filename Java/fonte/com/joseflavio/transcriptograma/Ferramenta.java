@@ -396,16 +396,16 @@ public class Ferramenta {
 	/**
 	 * Modularidade por densidade de cada coluna da matriz ordenada.
 	 */
-	public static int[] calcularModularidadeDensidade( short[][] matriz, short[] ordem, double densidadeMin ) {
+	public static short[] calcularModularidadeDensidade( short[][] matriz, short[] ordem, double densidadeMin ) {
 		
 		int total = ordem.length;
-		int[] modularidade = new int[total];
-		int i, j, raio, grau;
+		short[] modularidade = new short[total];
+		short i, j, raio, grau;
 		double densidade;
 		
 		for( j = 0; j < total; j++ ){
 			
-			raio = Math.max( j, total-j-1 );
+			raio = (short) Math.max( j, total-j-1 );
 			grau = 0;
 			
 			for( i = 0; i < total; i++ ){
@@ -417,10 +417,10 @@ public class Ferramenta {
 				densidade = grau / (double)( raio * 2 );
 				if( densidade >= densidadeMin ) break;
 				
-				i = j - raio;
+				i = (short)( j - raio );
 				if( i >= 0 && matriz[ordem[i]-1][ordem[j]-1] != 0 ) grau--;
 				
-				i = j + raio;
+				i = (short)( j + raio );
 				if( i < total && matriz[ordem[i]-1][ordem[j]-1] != 0 ) grau--;
 				
 				raio--;
@@ -438,11 +438,11 @@ public class Ferramenta {
 	/**
 	 * Modularidade por janela de cada coluna da matriz ordenada.
 	 */
-	public static int[] calcularModularidadeJanela( short[][] matriz, short[] ordem, int janela ) {
+	public static short[] calcularModularidadeJanela( short[][] matriz, short[] ordem, int janela ) {
 	
 		int total = ordem.length;
-		int[] modularidade = new int[total];
-		int[] grau = new int[total];
+		short[] modularidade = new short[total];
+		short[] grau = new short[total];
 		int i, j, janelai, janelaf;
 		double soma1, soma2;
 		
@@ -470,11 +470,119 @@ public class Ferramenta {
 				soma2 += grau[i];
 			}
 			
-			modularidade[pivo] = (int) Math.ceil( soma1 / soma2 * 100d );
+			modularidade[pivo] = (short) Math.ceil( soma1 / soma2 * 100d );
 			
 		}
 		
 		return modularidade;
+		
+	}
+	
+	/**
+	 * Calcula as fronteiras modulares automaticamente.
+	 * @param modularidade Veja {@link #calcularModularidadeJanela(short[][], short[], int)}.
+	 * @param distanciaMinima Distância mínima entre dois picos.
+	 * @param alturaMinima Altura mínima dos picos.
+	 */
+	public static short[] fronteiras( short[] modularidade, short distanciaMinima, short alturaMinima ) {
+		
+			short total = (short) modularidade.length;
+		
+		boolean[] pico = new boolean[total];
+		Arrays.fill( pico, false );
+
+		short topo = Short.MIN_VALUE;
+		short x, y, z, distancia;
+		
+		for( short m : modularidade ){
+				if( m > topo ) topo = m;
+		}
+		
+		//Varredura descendente em busca de picos
+		for( y = topo; y > 0; y-- ){
+			for( x = 0; x < total; x++ ){
+				if( modularidade[x] == y && ! pico[x] ){
+					
+					//Pico à direita
+					distancia = 1;
+					for( z = (short)( x + 1 ); z < total; z++ ){
+						if( pico[z] ) break;
+						distancia++;
+					}
+					if( distancia < distanciaMinima ) continue;
+					
+					//Pico à esquerda
+					distancia = 1;
+					for( z = (short)( x - 1 ); z >= 0; z-- ){
+						if( pico[z] ) break;
+						distancia++;
+					}
+					if( distancia < distanciaMinima ) continue;
+					
+					//Marcando pico
+					pico[x] = true;
+					
+				}
+			}
+		}
+
+		//Identificando os picos
+		List<Short> picos = new ArrayList<Short>();
+		for( x = 0; x < total; x++ ){
+			if( pico[x] ) picos.add( x );
+		}
+		
+		//Calculando as fronteiras
+		List<Short> fronteiras = new ArrayList<Short>();
+		boolean concluido = false;
+		short vale;
+		
+		while( ! concluido ){
+				
+				fronteiras.clear();
+				concluido = true;
+				
+			for( z = 0; z < (picos.size()-1); z++ ){
+					
+					x = (short)( picos.get( z	 ) + 1 );
+					y = (short)( picos.get( z + 1 ) - 1 );
+				
+				distancia = Short.MAX_VALUE;
+				vale = x;
+				while( x <= y ){
+					if( modularidade[x] < distancia ){
+						distancia = modularidade[x];
+						vale = x;
+					}
+					x++;
+				}
+				
+				distancia = (short)( modularidade[picos.get( z )] - modularidade[vale] );
+				if( distancia < alturaMinima ){
+					picos.remove( z );
+					concluido = false;
+					break;
+				}
+				
+				distancia = (short)( modularidade[picos.get( z + 1 )] - modularidade[vale] );
+				if( distancia < alturaMinima ){
+					picos.remove( z + 1 );
+					concluido = false;
+					break;
+				}
+				
+				fronteiras.add( vale );
+					
+			}
+			
+		}
+		
+		short[] resultado = new short[ fronteiras.size() ];
+		for( x = 0; x < resultado.length; x++ ){
+			resultado[x] = fronteiras.get( x );
+		}
+		
+		return resultado;
 		
 	}
 	

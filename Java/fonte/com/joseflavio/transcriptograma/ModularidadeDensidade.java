@@ -65,7 +65,7 @@ public class ModularidadeDensidade {
 			short[]   ordem     = Ferramenta.carregarOrdem( arquivo_ordem );
 			double  densidade   = Integer.parseInt( args[2] ) / 100d;
 			
-			int[] modularidade = Ferramenta.calcularModularidadeDensidade( matriz, ordem, densidade );
+			short[] modularidade = Ferramenta.calcularModularidadeDensidade( matriz, ordem, densidade );
 			System.out.print( modularidade[0] );
 			for( int i = 1; i < modularidade.length; i++ ) System.out.print( "," + modularidade[i] );	
 			System.out.flush();

@@ -71,8 +71,11 @@ public class Estatistica {
 		
 			File diretorio = new File( args[0] );
 
-			FileWriter saida = new FileWriter( new File( diretorio, "Estatistica.txt" ) );
-			saida.write( Ferramenta.concatenar( COLUNAS, ";", 0, COLUNAS.length - 1 ) + "\n" );
+			FileWriter saidaGeral = new FileWriter( new File( diretorio, "Estatistica.txt" ) );
+			saidaGeral.write( Ferramenta.concatenar( COLUNAS, ";", 0, COLUNAS.length - 1 ) + "\n" );
+			
+			FileWriter saidaTempo = new FileWriter( new File( diretorio, "EstatisticaTemporal.txt" ) );
+			saidaTempo.write( Ferramenta.concatenar( COLUNAS, ";", 0, 4 ) + ";Tempo;Dispersao;%ReducaoLocal;%ReducaoGlobal\n" );
 			
 			File[] matrizes = diretorio.listFiles( new FilenameFilter() {
 				public boolean accept( File dir, String name ) {
@@ -85,19 +88,21 @@ public class Estatistica {
 				System.out.println( matrizArquivo.getName() );
 				
 				short[][] matriz = Ferramenta.carregarMatriz( matrizArquivo );
-				long[] dispersaoMinMax = Ferramenta.calcularDispersaoMinMax( matriz, Ferramenta.grafoOrientado( matriz ) );
+				boolean orientado = Ferramenta.grafoOrientado( matriz );
+				long[] dispersaoMinMax = Ferramenta.calcularDispersaoMinMax( matriz, orientado );
 				
 				for( int execucao = 1; execucao <= 50; execucao++ ){
-					calcular( matrizArquivo, matriz, dispersaoMinMax, "CFM", execucao, saida );
-					calcular( matrizArquivo, matriz, dispersaoMinMax, "CLA", execucao, saida );
-					calcular( matrizArquivo, matriz, dispersaoMinMax, "DEM", execucao, saida );
+					calcular( matrizArquivo, matriz, orientado, dispersaoMinMax, "CFM", execucao, saidaGeral, saidaTempo );
+					calcular( matrizArquivo, matriz, orientado, dispersaoMinMax, "CLA", execucao, saidaGeral, saidaTempo );
+					calcular( matrizArquivo, matriz, orientado, dispersaoMinMax, "DEM", execucao, saidaGeral, saidaTempo );
 				}
 				
 				System.gc();
 				
 			}
 			
-			saida.close();
+			saidaGeral.close();
+			saidaTempo.close();
 			
 		}catch( IOException e ){
 			e.printStackTrace();
@@ -105,28 +110,33 @@ public class Estatistica {
 
 	}
 	
-	private static void calcular( File matrizArquivo, short[][] matriz, long[] dispersaoMinMax, String algoritmo, int execucao, FileWriter saida ) throws IOException {
+	private static void calcular( File matrizArquivo, short[][] matriz, boolean orientado, long[] dispersaoMinMax, String algoritmo, int execucao, FileWriter saidaGeral, FileWriter saidaTempo ) throws IOException {
 
 		/* --------------- */
 		
 		String prefixo = matrizArquivo.getName() + "." + algoritmo + "[" + execucao + "]";
+		File arquivoResultado = new File( matrizArquivo.getParent(), prefixo + ".txt" );
 		File arquivoDispersao = new File( matrizArquivo.getParent(), prefixo + ".disp.txt" );
 		File arquivoEstatisca = new File( matrizArquivo.getParent(), prefixo + ".estat.txt" );
 		File arquivoOrdem     = new File( matrizArquivo.getParent(), prefixo + ".ordem.txt" );
-		if( ! arquivoDispersao.exists() || ! arquivoEstatisca.exists() || ! arquivoOrdem.exists() ) return;
+		if( ! arquivoResultado.exists() || ! arquivoDispersao.exists() || ! arquivoEstatisca.exists() || ! arquivoOrdem.exists() ) return;
+		
+		int experimento = Integer.parseInt( prefixo.substring( 1, 4 ) );
+		String rede = prefixo.substring( 6, 11 );
+		int tamanho = Integer.parseInt( prefixo.substring( 12, 16 ) );
 		
 		/* --------------- */
 		
-		saida.write( "" + Integer.parseInt( prefixo.substring( 1, 4 ) ) );
-		saida.write( ";" );
-		saida.write( prefixo.substring( 6, 11 ) );
-		saida.write( ";" );
-		saida.write( "" + Integer.parseInt( prefixo.substring( 12, 16 ) ) );
-		saida.write( ";" );
-		saida.write( algoritmo );
-		saida.write( ";" );
-		saida.write( "" + execucao );
-		saida.write( ";" );
+		saidaGeral.write( "" + experimento );
+		saidaGeral.write( ";" );
+		saidaGeral.write( rede );
+		saidaGeral.write( ";" );
+		saidaGeral.write( "" + tamanho );
+		saidaGeral.write( ";" );
+		saidaGeral.write( algoritmo );
+		saidaGeral.write( ";" );
+		saidaGeral.write( "" + execucao );
+		saidaGeral.write( ";" );
 		
 		/* --------------- */
 		
@@ -171,80 +181,107 @@ public class Estatistica {
 		i = dispersaoTotal-1;
 		long dispersaoFinal = dispersaoMatriz[i][1];
 		
-		saida.write( "" + dispersaoFinal );
-		saida.write( ";" );
+		saidaGeral.write( "" + dispersaoFinal );
+		saidaGeral.write( ";" );
 		
 		/* --------------- */
 		
 		long tempo = dispersaoMatriz[i][0];
-		saida.write( "" + tempo );
-		saida.write( ";" );
+		saidaGeral.write( "" + tempo );
+		saidaGeral.write( ";" );
 		
 		/* --------------- */
 		
 		if( tempo == 0 ) tempo = 1;
-		saida.write( "" + (int)( dispersaoFinal / (float) tempo ) );
-		saida.write( ";" );
+		saidaGeral.write( "" + (int)( dispersaoFinal / (float) tempo ) );
+		saidaGeral.write( ";" );
 		
 		/* --------------- */
 		
 		float reducaoLocal = ( 1f - dispersaoFinal / (float) dispersaoInicial ) * 100f;
-		saida.write( nf.format( reducaoLocal ) );
-		saida.write( ";" );
+		saidaGeral.write( nf.format( reducaoLocal ) );
+		saidaGeral.write( ";" );
 		
 		/* --------------- */
 		
-		saida.write( nf.format( reducaoLocal / tempo ) );
-		saida.write( ";" );
+		saidaGeral.write( nf.format( reducaoLocal / tempo ) );
+		saidaGeral.write( ";" );
 		
 		/* --------------- */
 		
 		long dispersaoParcial = (int)( dispersaoInicial * 0.9d );
 		for( i = 0; i < dispersaoTotal; i++ ){
 			if( dispersaoMatriz[i][1] <= dispersaoParcial ){
-				saida.write( "" + dispersaoMatriz[i][0] );
-				saida.write( ";" );
+				saidaGeral.write( "" + dispersaoMatriz[i][0] );
+				saidaGeral.write( ";" );
 				break;
 			}
 		}
-		if( i == dispersaoTotal ) saida.write( "--;" );
+		if( i == dispersaoTotal ) saidaGeral.write( "--;" );
 		
 		/* --------------- */
 		
 		i = estatiscaTotal - 1;
 		
-		saida.write( "" + estatisticaMatriz[i][1] );
-		saida.write( ";" );
-		saida.write( "" + estatisticaMatriz[i][2] );
-		saida.write( ";" );
-		saida.write( "" + estatisticaMatriz[i][3] );
-		saida.write( ";" );
-		saida.write( "" + estatisticaMatriz[i][4] );
+		saidaGeral.write( "" + estatisticaMatriz[i][1] );
+		saidaGeral.write( ";" );
+		saidaGeral.write( "" + estatisticaMatriz[i][2] );
+		saidaGeral.write( ";" );
+		saidaGeral.write( "" + estatisticaMatriz[i][3] );
+		saidaGeral.write( ";" );
+		saidaGeral.write( "" + estatisticaMatriz[i][4] );
 		
 		/* --------------- */
 		
 		long dispersaoMin = dispersaoMinMax[0];
 		long dispersaoMax = dispersaoMinMax[1];
 		
-		saida.write( ";" );
-		saida.write( "" + dispersaoMin );
-		saida.write( ";" );
-		saida.write( "" + dispersaoMax );
+		saidaGeral.write( ";" );
+		saidaGeral.write( "" + dispersaoMin );
+		saidaGeral.write( ";" );
+		saidaGeral.write( "" + dispersaoMax );
 		
 		/* --------------- */
 		
-		saida.write( ";" );
-		saida.write( "" + dispersaoMinMax[2] );
+		saidaGeral.write( ";" );
+		saidaGeral.write( "" + dispersaoMinMax[2] );
 		
 		/* --------------- */
 		
-		saida.write( ";" );
+		saidaGeral.write( ";" );
 		float reducaoGlobal = ( 1f - ( dispersaoFinal - dispersaoMin ) / (float)( dispersaoMax - dispersaoMin ) ) * 100f;
-		saida.write( nf.format( reducaoGlobal ) );
+		saidaGeral.write( nf.format( reducaoGlobal ) );
 		
 		/* --------------- */
 		
-		saida.write( "\n" );
+		saidaGeral.write( "\n" );
+		
+		/* --------------- */
+		
+		for( Registro registro : Ferramenta.carregarRegistros( arquivoResultado ) ){
+			
+			long dispersaoTempo = Ferramenta.calcularDispersao( matriz, registro.getOrdem(), orientado );
+			
+			saidaTempo.write( "" + experimento );
+			saidaTempo.write( ";" );
+			saidaTempo.write( rede );
+			saidaTempo.write( ";" );
+			saidaTempo.write( "" + tamanho );
+			saidaTempo.write( ";" );
+			saidaTempo.write( algoritmo );
+			saidaTempo.write( ";" );
+			saidaTempo.write( "" + execucao );
+			saidaTempo.write( ";" );
+			saidaTempo.write( "" + registro.getTempoDecorrido() );
+			saidaTempo.write( ";" );
+			saidaTempo.write( "" + dispersaoTempo );
+			saidaTempo.write( ";" );
+			saidaTempo.write( nf.format( ( 1f - dispersaoTempo / (float) dispersaoInicial ) * 100f ) );
+			saidaTempo.write( ";" );
+			saidaTempo.write( nf.format( ( 1f - ( dispersaoTempo - dispersaoMin ) / (float)( dispersaoMax - dispersaoMin ) ) * 100f ) );
+			saidaTempo.write( "\n" );
+			
+		}
 		
 		/* --------------- */
 		

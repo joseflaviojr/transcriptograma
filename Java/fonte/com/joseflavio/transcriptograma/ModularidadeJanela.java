@@ -65,7 +65,7 @@ public class ModularidadeJanela {
 			short[]   ordem   = Ferramenta.carregarOrdem( arquivo_ordem );
 			int     janela    = Integer.parseInt( args[2] );
 			
-			int[] modularidade = Ferramenta.calcularModularidadeJanela( matriz, ordem, janela );
+			short[] modularidade = Ferramenta.calcularModularidadeJanela( matriz, ordem, janela );
 			System.out.print( modularidade[0] );
 			for( int i = 1; i < modularidade.length; i++ ) System.out.print( "," + modularidade[i] );	
 			System.out.flush();
