@@ -99,6 +99,11 @@ public class Informacao {
 			System.out.println( "Dispersão máxima  (Dmax): " + Dmax );
 			System.out.println( "Redução local           : " + ( ( 1f - Df / (float) Di ) * 100f ) + " %   1-Df/Di" );
 			System.out.println( "Redução global          : " + ( ( 1f - ( Df - Dmin ) / (float)( Dmax - Dmin ) ) * 100f ) + " %   1-(Df-Dmin)/(Dmax-Dmin)" );
+			
+			if( ! orientado ){
+				System.out.println( "Custo CFM               : " + Ferramenta.calcularCustoCFM( matriz, ordem ) );
+			}
+			
 			System.out.println();
 			
 		}catch( Exception e ){

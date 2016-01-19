@@ -48,7 +48,7 @@ import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 
 /**
- * Pinta módulos expressos graficamente.
+ * Colore módulos expressos graficamente.
  * @author José Flávio de Souza Dias Júnior
  * @version 2015
  */
@@ -65,7 +65,7 @@ public class ColorirModulos {
 		}
 		
 		if( args.length < 2 || ! argumentosOK ){
-			System.out.println( "Pinta módulos expressos graficamente." );
+			System.out.println( "Colore módulos expressos graficamente." );
 			System.out.println( ColorirModulos.class.getSimpleName() + ".sh <grafico.png> <saida.png> [<fronteira1> <fronteira2> <fronteiraN>]" );
 			System.out.println( "Ex1: ColorirModulos.sh Modularidade.png ModularidadeColorida.png 21 153 302" );
 			System.out.println( "Ex2: Fronteiras.sh Modularidade.txt 50 6 | ColorirModulos.sh Modularidade.png ModularidadeColorida.png" );
@@ -113,7 +113,8 @@ public class ColorirModulos {
 			
 			for( int fronteira : fronteiras ){
 				
-				int cor = Integer.parseInt( GraficoTranscriptograma.CORES[cor_pos++], 16 );
+				int cor = Integer.parseInt( GraficoTranscriptograma.CORES[cor_pos], 16 );
+				if( ++cor_pos >= GraficoTranscriptograma.CORES.length ) cor_pos = 0;
 				
 				for( int x = ultima + 1; x <= fronteira && x < largura; x++ ){
 					for( int y = 0; y < altura; y++ ){

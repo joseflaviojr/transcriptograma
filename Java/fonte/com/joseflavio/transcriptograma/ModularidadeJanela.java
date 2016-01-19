@@ -42,7 +42,7 @@ package com.joseflavio.transcriptograma;
 import java.io.File;
 
 /**
- * Calcula a modularidade por janela de cada coluna de uma matriz ordenada.
+ * Calcula a modularidade por janela de uma rede ordenada.
  * @author José Flávio de Souza Dias Júnior
  * @version 2015
  */
@@ -51,7 +51,7 @@ public class ModularidadeJanela {
 	public static void main( String[] args ) {
 		
 		if( args.length < 3 ){
-			System.out.println( "Calcula a modularidade por janela de cada coluna de uma matriz ordenada." );
+			System.out.println( "Calcula a modularidade por janela de uma rede ordenada." );
 			System.out.println( ModularidadeJanela.class.getSimpleName() + " <arquivo_matriz> <arquivo_ordem> <janela:251|300|...>" );
 			System.exit( 1 );
 		}
@@ -63,7 +63,7 @@ public class ModularidadeJanela {
 			
 			short[][] matriz  = Ferramenta.carregarMatriz( arquivo_matriz );
 			short[]   ordem   = Ferramenta.carregarOrdem( arquivo_ordem );
-			int     janela    = Integer.parseInt( args[2] );
+			short     janela  = Short.parseShort( args[2] );
 			
 			short[] modularidade = Ferramenta.calcularModularidadeJanela( matriz, ordem, janela );
 			System.out.print( modularidade[0] );

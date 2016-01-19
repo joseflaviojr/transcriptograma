@@ -363,6 +363,42 @@ public class Ferramenta {
 	}
 	
 	/**
+	 * Custo CFM.
+	 * @param matriz Matriz de adjacências de grafo não orientado e sem ponderação.
+	 */
+	public static long calcularCustoCFM( short[][] matriz, short[] ordem ) {
+		
+		long custo = 0;
+
+		int total = ordem.length;
+		int ultimo = total - 1;
+		int i, j, aresta, vizinhanca;
+
+		for( i = 0; i < total; i++ ){
+			for( j = 0; j < total; j++ ){
+				if( i == j ) continue;
+				aresta = matriz[ordem[i]-1][ordem[j]-1];
+				vizinhanca = 0;
+				if( i != ultimo ) vizinhanca += aresta - matriz[ordem[i+1]-1][ordem[j  ]-1];
+				if( j != ultimo ) vizinhanca += aresta - matriz[ordem[i  ]-1][ordem[j+1]-1];
+				if( i != 0 )      vizinhanca += aresta - matriz[ordem[i-1]-1][ordem[j  ]-1];
+				if( j != 0 )      vizinhanca += aresta - matriz[ordem[i  ]-1][ordem[j-1]-1];
+				custo += Math.abs(i-j) * Math.abs(vizinhanca);
+			}
+		}
+
+		return custo;
+		
+	}
+	
+//	/**
+//	 * Atualiza o peso de cada aresta conforme a distância entre os pares de vértices no ordenamento.
+//	 */
+//	public static void atualizarArestas( short[][] matriz, short[] ordem ) {
+//		
+//	}
+	
+	/**
 	 * Escada: fator que mede a qualidade da redução do número de arestas entre as diagonais a partir do centro.
 	 */
 	public static long calcularEscada( short[][] matriz, short[] ordem, boolean orientado ) {
@@ -394,7 +430,174 @@ public class Ferramenta {
 	}
 	
 	/**
-	 * Modularidade por densidade de cada coluna da matriz ordenada.
+	 * @param matriz Matriz de adjacências.
+	 * @param ordem Sequência numérica com valores entre 1 e matriz.length.
+	 * @param origem 0 &le; origem &lt; matriz.length.
+	 * @param destino 0 &le; destino &lt; matriz.length.
+	 * @return peso da aresta.
+	 */
+	public static short aresta( short[][] matriz, short[] ordem, short origem, short destino ) {
+		return matriz[ordem[origem]-1][ordem[destino]-1];
+	}
+	
+	/**
+	 * Grau de vértice, com restrição de destinos.
+	 * @param matriz Matriz de adjacências.
+	 * @param ordem Sequência numérica com valores entre 1 e matriz.length.
+	 * @param vertice Índice do vértice em questão. 0 &le; vertice &lt; matriz.length.
+	 * @param inicio 0 &le; inicio &lt; matriz.length.
+	 * @param fim 0 &le; fim &lt; matriz.length.
+	 * @return grau do vértice.
+	 */
+	public static short grau( short[][] matriz, short[] ordem, short vertice, short inicio, short fim ) {
+		if( inicio < 0 ) inicio = 0;
+		if( fim >= ordem.length ) fim = (short)( ordem.length - 1 );
+		short grau = 0;
+		for( short destino = inicio; destino <= fim; destino++ ){
+			grau += matriz[ordem[vertice]-1][ordem[destino]-1] != 0 ? 1 : 0;
+		}
+		return grau;
+	}
+	
+	/**
+	 * Grau de um específico vértice de um grafo.
+	 * @see #grau(short[][], short[], short, short, short)
+	 */
+	public static short grau( short[][] matriz, short[] ordem, short vertice ) {
+		return grau( matriz, ordem, vertice, (short) 0, (short)( ordem.length - 1 ) );
+	}
+	
+	/**
+	 * Algoritmo de Floyd-Warshall.<br>
+	 * Floyd, R. W. (1962). Algorithm 97: Shortest path. Communications of the ACM, 5(6):345-.
+	 * @return matriz de distâncias, já com as colunas/linhas permutadas conforme a ordem especificada.
+	 */
+	public static short[][] matrizDistancias( short[][] matriz, short[] ordem ) {
+
+		final short INFINITO = Short.MAX_VALUE;
+		final int total = ordem.length;
+		short[][] mdist = new short[total][total];
+		short i, j, v, a, b;
+
+		for( i = 0; i < total; i++ ){
+			for( j = 0; j < total; j++ ){
+				mdist[i][j] = i == j ? (short) 0 : matriz[ordem[i]-1][ordem[j]-1];
+			}
+		}
+		
+		for( v = 0; v < total; v++ ){
+			for( i = 0; i < total; i++ ){
+				for( j = 0; j < total; j++ ){
+					a = mdist[i][v];
+					b = mdist[v][j];
+					a = a == 0 || b == 0 ? INFINITO : (short)( a + b );
+					if( mdist[i][j] > a ){
+						mdist[i][j] = a;
+					}
+				}
+			}
+		}
+		
+		return mdist;
+		
+	}
+	
+	/**
+	 * Busca pelo maior valor dentro de uma submatriz quadrada.
+	 * @param inicio Linha/Coluna inicial. 0 &le; inicio &lt; matriz.length.
+	 * @param fim Linha/Coluna final. 0 &le; fim &lt; matriz.length.
+	 */
+	public static short maiorValorSubmatriz( short[][] matriz, short inicio, short fim ) {
+		
+		short maior = Short.MIN_VALUE;
+		
+		for( short i = inicio; i <= fim; i++ ){
+			for( short j = inicio; j <= fim; j++ ){
+				if( matriz[i][j] > maior ) maior = matriz[i][j];
+			}
+		}
+		
+		return maior;
+		
+	}
+	
+	/**
+	 * Modularidade por Janela (Window Modularity).
+	 */
+	public static short[] calcularModularidadeJanela( short[][] matriz, short[] ordem, short janela ) {
+	
+		int total = ordem.length;
+		short[] modularidade = new short[total];
+		short[] grau = new short[total];
+		int i, j, janelai, janelaf;
+		double soma1, soma2;
+		
+		for( i = 0; i < total; i++ ){
+			grau[i] = grau( matriz, ordem, (short) i );
+		}
+		
+		for( int pivo = 0; pivo < total; pivo++ ){
+			
+			janelai = pivo - (int) Math.floor( janela / 2d );
+			janelaf = janelai + janela - 1;
+			if( janelai < 0 ) janelai = 0;
+			if( janelaf >= total ) janelaf = total - 1;
+			
+			soma1 = 0;
+			soma2 = 0;
+			
+			for( i = janelai; i <= janelaf; i++ ){
+				for( j = janelai; j <= janelaf; j++ ){
+					soma1 += matriz[ordem[i]-1][ordem[j]-1] != 0 ? 1 : 0;
+				}
+				soma2 += grau[i];
+			}
+			
+			modularidade[pivo] = (short) Math.ceil( soma1 / soma2 * 100d );
+			
+		}
+		
+		return modularidade;
+		
+	}
+	
+	/**
+	 * Modularidade por Janela Restrita (Restricted Window Modularity).
+	 */
+	public static short[] calcularModularidadeJanelaRestrita( short[][] matriz, short[] ordem, short janela ) {
+	
+		int total = ordem.length;
+		short[] modularidade = new short[total];
+		short[] grau = new short[total];
+		int i, j, janelai, janelaf;
+		short maior;
+		
+		for( i = 0; i < total; i++ ){
+			grau[i] = grau( matriz, ordem, (short) i );
+		}
+		
+		for( i = 0; i < total; i++ ){
+			
+			janelai = i - (int) Math.floor( janela / 2d );
+			janelaf = janelai + janela - 1;
+			if( janelai < 0 ) janelai = 0;
+			if( janelaf >= total ) janelaf = total - 1;
+			
+			maior = 0;
+			for( j = janelai; j <= janelaf; j++ ){
+				if( grau[j] > maior ) maior = grau[j];
+			}
+			
+			modularidade[i] = maior > 0 ? (short)( grau[i] * 100f / maior ) : 0;
+			
+		}
+		
+		return modularidade;
+		
+	}
+	
+	/**
+	 * Modularidade por Densidade.
 	 */
 	public static short[] calcularModularidadeDensidade( short[][] matriz, short[] ordem, double densidadeMin ) {
 		
@@ -436,51 +639,8 @@ public class Ferramenta {
 	}
 	
 	/**
-	 * Modularidade por janela de cada coluna da matriz ordenada.
-	 */
-	public static short[] calcularModularidadeJanela( short[][] matriz, short[] ordem, int janela ) {
-	
-		int total = ordem.length;
-		short[] modularidade = new short[total];
-		short[] grau = new short[total];
-		int i, j, janelai, janelaf;
-		double soma1, soma2;
-		
-		for( i = 0; i < total; i++ ){
-			grau[i] = 0;
-			for( j = 0; j < total; j++ ){
-				grau[i] += matriz[ordem[i]-1][ordem[j]-1] != 0 ? 1 : 0;
-			}
-		}
-		
-		for( int pivo = 0; pivo < total; pivo++ ){
-			
-			janelai = pivo - (int) Math.floor( janela / 2d );
-			janelaf = janelai + janela - 1;
-			if( janelai < 0 ) janelai = 0;
-			if( janelaf >= total ) janelaf = total - 1;
-			
-			soma1 = 0;
-			soma2 = 0;
-			
-			for( i = janelai; i <= janelaf; i++ ){
-				for( j = janelai; j <= janelaf; j++ ){
-					soma1 += matriz[ordem[i]-1][ordem[j]-1] != 0 ? 1 : 0;
-				}
-				soma2 += grau[i];
-			}
-			
-			modularidade[pivo] = (short) Math.ceil( soma1 / soma2 * 100d );
-			
-		}
-		
-		return modularidade;
-		
-	}
-	
-	/**
 	 * Calcula as fronteiras modulares automaticamente.
-	 * @param modularidade Veja {@link #calcularModularidadeJanela(short[][], short[], int)}.
+	 * @param modularidade Veja {@link #calcularModularidadeJanela(short[][], short[], short)}.
 	 * @param distanciaMinima Distância mínima entre dois picos.
 	 * @param alturaMinima Altura mínima dos picos.
 	 */
