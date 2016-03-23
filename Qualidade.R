@@ -50,15 +50,15 @@
 qualidadeSeriacao <- function( grafo, seriacao, fronteiras, indices=c("Silhouette","Dunn","Connectivity") ){
 
     if( ! "igraph" %in% rownames(installed.packages()) ){
-        install.packages("igraph", dependencies=TRUE)
+        install.packages("igraph", dependencies=TRUE, repos="http://cran-r.c3sl.ufpr.br/")
     }
 
     if( ! "cluster" %in% rownames(installed.packages()) ){
-        install.packages("cluster", dependencies=TRUE)
+        install.packages("cluster", dependencies=TRUE, repos="http://cran-r.c3sl.ufpr.br/")
     }
 
     if( ! "clValid" %in% rownames(installed.packages()) ){
-        install.packages("clValid", dependencies=TRUE)
+        install.packages("clValid", dependencies=TRUE, repos="http://cran-r.c3sl.ufpr.br/")
     }
 
     library(igraph)
@@ -110,11 +110,11 @@ compararSeriacao <- function( grafo, seriacao1, fronteiras1, seriacao2=NULL, fro
                                 silhouette=TRUE, G2=FALSE, G3=FALSE, wgap=FALSE, sepindex=FALSE ){
 
     if( ! "igraph" %in% rownames(installed.packages()) ){
-        install.packages("igraph", dependencies=TRUE)
+        install.packages("igraph", dependencies=TRUE, repos="http://cran-r.c3sl.ufpr.br/")
     }
 
     if( ! "fpc" %in% rownames(installed.packages()) ){
-        install.packages("fpc", dependencies=TRUE)
+        install.packages("fpc", dependencies=TRUE, repos="http://cran-r.c3sl.ufpr.br/")
     }
 
     library(igraph)
@@ -200,11 +200,11 @@ compararSeriacao <- function( grafo, seriacao1, fronteiras1, seriacao2=NULL, fro
 silhouetteSeriacao <- function( grafo, seriacao, fronteiras ){
 
     if( ! "igraph" %in% rownames(installed.packages()) ){
-        install.packages("igraph", dependencies=TRUE)
+        install.packages("igraph", dependencies=TRUE, repos="http://cran-r.c3sl.ufpr.br/")
     }
 
     if( ! "cluster" %in% rownames(installed.packages()) ){
-        install.packages("cluster", dependencies=TRUE)
+        install.packages("cluster", dependencies=TRUE, repos="http://cran-r.c3sl.ufpr.br/")
     }
 
     library(igraph)
@@ -242,7 +242,7 @@ silhouetteSeriacao <- function( grafo, seriacao, fronteiras ){
 qualidadeSeriacaoArquivo <- function( rede, orientada=F, seriacao, fronteiras, indices="Silhouette,Dunn,Connectivity", saida, cabecalho=TRUE ){
 
     if( ! "igraph" %in% rownames(installed.packages()) ){
-        install.packages("igraph", dependencies=TRUE)
+        install.packages("igraph", dependencies=TRUE, repos="http://cran-r.c3sl.ufpr.br/")
     }
 
     library(igraph)
@@ -283,7 +283,7 @@ qualidadeSeriacaoArquivo <- function( rede, orientada=F, seriacao, fronteiras, i
 compararSeriacaoArquivo <- function( rede, orientada=F, seriacao1, fronteiras1, seriacao2=NULL, fronteiras2=NULL, saida ){
 
     if( ! "igraph" %in% rownames(installed.packages()) ){
-        install.packages("igraph", dependencies=TRUE)
+        install.packages("igraph", dependencies=TRUE, repos="http://cran-r.c3sl.ufpr.br/")
     }
 
     library(igraph)
@@ -330,7 +330,7 @@ compararSeriacaoArquivo <- function( rede, orientada=F, seriacao1, fronteiras1, 
 silhouetteSeriacaoArquivo <- function( rede, orientada=F, seriacao, fronteiras, saida ){
 
     if( ! "igraph" %in% rownames(installed.packages()) ){
-        install.packages("igraph", dependencies=TRUE)
+        install.packages("igraph", dependencies=TRUE, repos="http://cran-r.c3sl.ufpr.br/")
     }
 
     library(igraph)

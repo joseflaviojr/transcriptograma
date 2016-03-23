@@ -1,6 +1,6 @@
 
 /*
- *  Copyright (C) 2015 José Flávio de Souza Dias Júnior
+ *  Copyright (C) 2015-2016 José Flávio de Souza Dias Júnior
  *  
  *  This file is part of Transcriptograma - <http://www.joseflavio.com/transcriptograma/>.
  *  
@@ -19,7 +19,7 @@
  */
 
 /*
- *  Direitos Autorais Reservados (C) 2015 José Flávio de Souza Dias Júnior
+ *  Direitos Autorais Reservados (C) 2015-2016 José Flávio de Souza Dias Júnior
  * 
  *  Este arquivo é parte de Transcriptograma - <http://www.joseflavio.com/transcriptograma/>.
  * 
@@ -50,7 +50,7 @@ public class Informacao {
 
 	public static void main( String[] args ) {
 		
-		if( args.length < 1 || args[0].length() == 0 ){
+		if( args.length < 1 || args[0].isEmpty() ){
 			System.out.println( "Informações sobre uma matriz de adjacências." );
 			System.out.println( Informacao.class.getSimpleName() + " <arquivo_matriz> [<arquivo_ordem>]" );
 			System.exit( 1 );

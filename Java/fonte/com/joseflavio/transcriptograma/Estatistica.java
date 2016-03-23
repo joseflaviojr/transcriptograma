@@ -1,6 +1,6 @@
 
 /*
- *  Copyright (C) 2015 José Flávio de Souza Dias Júnior
+ *  Copyright (C) 2015-2016 José Flávio de Souza Dias Júnior
  *  
  *  This file is part of Transcriptograma - <http://www.joseflavio.com/transcriptograma/>.
  *  
@@ -19,7 +19,7 @@
  */
 
 /*
- *  Direitos Autorais Reservados (C) 2015 José Flávio de Souza Dias Júnior
+ *  Direitos Autorais Reservados (C) 2015-2016 José Flávio de Souza Dias Júnior
  * 
  *  Este arquivo é parte de Transcriptograma - <http://www.joseflavio.com/transcriptograma/>.
  * 
@@ -78,6 +78,7 @@ public class Estatistica {
 			saidaTempo.write( Ferramenta.concatenar( COLUNAS, ";", 0, 4 ) + ";Tempo;Dispersao;%ReducaoLocal;%ReducaoGlobal\n" );
 			
 			File[] matrizes = diretorio.listFiles( new FilenameFilter() {
+				@Override
 				public boolean accept( File dir, String name ) {
 					return name.endsWith( ".csv" );
 				}
@@ -288,7 +289,7 @@ public class Estatistica {
 	}
 	
 	public static boolean inadequado( String valor ) {
-		return valor == null || valor.length() == 0 || valor.equals( "--" );
+		return valor == null || valor.isEmpty() || valor.equals( "--" );
 	}
 	
 }

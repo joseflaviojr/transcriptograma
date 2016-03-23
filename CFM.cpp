@@ -1,6 +1,6 @@
 
 /*
- *  Copyright (C) 2015 José Flávio de Souza Dias Júnior
+ *  Copyright (C) 2015-2016 José Flávio de Souza Dias Júnior
  *  
  *  This file is part of Transcriptograma - <http://www.joseflavio.com/transcriptograma/>.
  *  
@@ -19,7 +19,7 @@
  */
 
 /*
- *  Direitos Autorais Reservados (C) 2015 José Flávio de Souza Dias Júnior
+ *  Direitos Autorais Reservados (C) 2015-2016 José Flávio de Souza Dias Júnior
  * 
  *  Este arquivo é parte de Transcriptograma - <http://www.joseflavio.com/transcriptograma/>.
  * 
@@ -179,9 +179,8 @@ long CustoCFM( int** matrizadj, int* ordem, int total ) {
 	const int ultimo = total - 1;
 	int i, j, valor;
 
-	for( i = 0; i < total; i++ ){
-		for( j = 0; j < total; j++ ){
-			if( i == j ) continue;
+	for( i = 0; i < ultimo; i++ ){
+		for( j = i+1; j < total; j++ ){
 			valor = 0;
 			if( matrizadj[ordem[i]][ordem[j]] ){
 				if( i != ultimo ) valor += 1 - matrizadj[ordem[i+1]][ordem[j  ]];

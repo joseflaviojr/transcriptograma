@@ -1,6 +1,6 @@
 
 /*
- *  Copyright (C) 2015 José Flávio de Souza Dias Júnior
+ *  Copyright (C) 2015-2016 José Flávio de Souza Dias Júnior
  *  
  *  This file is part of Transcriptograma - <http://www.joseflavio.com/transcriptograma/>.
  *  
@@ -19,7 +19,7 @@
  */
 
 /*
- *  Direitos Autorais Reservados (C) 2015 José Flávio de Souza Dias Júnior
+ *  Direitos Autorais Reservados (C) 2015-2016 José Flávio de Souza Dias Júnior
  * 
  *  Este arquivo é parte de Transcriptograma - <http://www.joseflavio.com/transcriptograma/>.
  * 
@@ -374,9 +374,8 @@ public class Ferramenta {
 		int ultimo = total - 1;
 		int i, j, aresta, vizinhanca;
 
-		for( i = 0; i < total; i++ ){
-			for( j = 0; j < total; j++ ){
-				if( i == j ) continue;
+		for( i = 0; i < ultimo; i++ ){
+			for( j = i+1; j < total; j++ ){
 				aresta = matriz[ordem[i]-1][ordem[j]-1];
 				vizinhanca = 0;
 				if( i != ultimo ) vizinhanca += aresta - matriz[ordem[i+1]-1][ordem[j  ]-1];

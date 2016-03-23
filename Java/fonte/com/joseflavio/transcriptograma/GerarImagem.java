@@ -1,6 +1,6 @@
 
 /*
- *  Copyright (C) 2015 José Flávio de Souza Dias Júnior
+ *  Copyright (C) 2015-2016 José Flávio de Souza Dias Júnior
  *  
  *  This file is part of Transcriptograma - <http://www.joseflavio.com/transcriptograma/>.
  *  
@@ -19,7 +19,7 @@
  */
 
 /*
- *  Direitos Autorais Reservados (C) 2015 José Flávio de Souza Dias Júnior
+ *  Direitos Autorais Reservados (C) 2015-2016 José Flávio de Souza Dias Júnior
  * 
  *  Este arquivo é parte de Transcriptograma - <http://www.joseflavio.com/transcriptograma/>.
  * 
@@ -50,7 +50,7 @@ public class GerarImagem {
 
 	public static void main( String[] args ) {
 		
-		if( args.length < 2 || args[0].length() == 0 || args[1].length() == 0 ){
+		if( args.length < 2 || args[0].isEmpty() || args[1].isEmpty() ){
 			System.out.println( "Gera imagem de matriz de adjacências conforme ordenamento informado." );
 			System.out.println( GerarImagem.class.getSimpleName() + " <arquivo_matriz> <arquivo_ordem> [<nome_arquivo_imagem.png>]" );
 			System.exit( 1 );

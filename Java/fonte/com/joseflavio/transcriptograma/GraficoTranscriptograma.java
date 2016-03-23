@@ -1,6 +1,6 @@
 
 /*
- *  Copyright (C) 2015 José Flávio de Souza Dias Júnior
+ *  Copyright (C) 2015-2016 José Flávio de Souza Dias Júnior
  *  
  *  This file is part of Transcriptograma - <http://www.joseflavio.com/transcriptograma/>.
  *  
@@ -19,7 +19,7 @@
  */
 
 /*
- *  Direitos Autorais Reservados (C) 2015 José Flávio de Souza Dias Júnior
+ *  Direitos Autorais Reservados (C) 2015-2016 José Flávio de Souza Dias Júnior
  * 
  *  Este arquivo é parte de Transcriptograma - <http://www.joseflavio.com/transcriptograma/>.
  * 
@@ -41,13 +41,17 @@ package com.joseflavio.transcriptograma;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 
 import com.lyncode.jtwig.JtwigModelMap;
 import com.lyncode.jtwig.JtwigTemplate;
@@ -76,7 +80,7 @@ public class GraficoTranscriptograma {
 		
 		boolean argumentosOK = true;
 		for( int i = 0; i < args.length; i++ ){
-			if( args[i].length() == 0 ){
+			if( args[i].isEmpty() ){
 				argumentosOK = false;
 				break;
 			}
@@ -84,12 +88,13 @@ public class GraficoTranscriptograma {
 		
 		if( args.length < 5 || ! argumentosOK ){
 			System.out.println( "Gera gráfico com transcriptogramas e modularidades." );
-			System.out.println( GraficoTranscriptograma.class.getSimpleName() + " <mod_janela> <mod_densidade> <transcriptograma> <series> [<legenda>] <saida.svg>" );
+			System.out.println( GraficoTranscriptograma.class.getSimpleName() + " <mod_janela> <mod_densidade> <transcriptograma> <series> [<legenda> [<rotulos>]] <saida.svg>" );
 			System.out.println( "<mod_janela>       : Arquivo gerado por ModularidadeJanela.sh" );
 			System.out.println( "<mod_densidade>    : Arquivo gerado por ModularidadeDensidade.sh" );
 			System.out.println( "<transcriptograma> : Arquivo gerado por Transcriptograma.sh" );
 			System.out.println( "<series>           : \"1,2,3-7,...\" ou \"0\" para todas" );
 			System.out.println( "<legenda>          : Arquivo do qual as linhas definem a legenda" );
+			System.out.println( "<rotulos>          : Título e rótulos do gráfico a ser gerado" );
 			System.out.println( "<saida.svg>        : Saída no formato Scalable Vector Graphics" );
 			System.exit( 1 );
 		}
@@ -103,13 +108,18 @@ public class GraficoTranscriptograma {
 			File   arquivo_transcriptograma = new File( args[2] );
 			String series_param             =           args[3]  ;
 			File   arquivo_legenda          = null;
+			File   arquivo_rotulos          = null;
 			File   arquivo_svg              = null;
 			
-			if( args.length > 5 ){
+			if( args.length == 5 ){
+				arquivo_svg     = new File( args[4] );
+			}else if( args.length == 6 ){
 				arquivo_legenda = new File( args[4] );
 				arquivo_svg     = new File( args[5] );
 			}else{
-				arquivo_svg     = new File( args[4] );
+				arquivo_legenda = new File( args[4] );
+				arquivo_rotulos = new File( args[5] );
+				arquivo_svg     = new File( args[6] );
 			}
 			
 			short[] mod_jan = Ferramenta.carregarOrdem( arquivo_mod_janela );
@@ -135,7 +145,18 @@ public class GraficoTranscriptograma {
 			
 			Locale local = Locale.getDefault();
 			
-			if( local.getLanguage().equals( new Locale( "pt" ) ) ){
+			if( arquivo_rotulos != null && arquivo_rotulos.exists() ){
+				Properties rotulos = new Properties();
+				Reader entrada = new InputStreamReader( new FileInputStream( arquivo_rotulos ), "UTF-8" );
+				rotulos.load( entrada );
+				entrada.close();
+				jmm.add( "titulo", rotulos.getProperty( "titulo" ) );
+				jmm.add( "rotulov", rotulos.getProperty( "rotulov" ) );
+				jmm.add( "rotuloh", rotulos.getProperty( "rotuloh" ) );
+				jmm.add( "transcriptograma", rotulos.getProperty( "transcriptograma" ) );
+				jmm.add( "modjanela", rotulos.getProperty( "modjanela" ) );
+				jmm.add( "moddensidade", rotulos.getProperty( "moddensidade" ) );
+			}else if( local.getLanguage().equals( new Locale( "pt" ) ) ){
 				jmm.add( "titulo", "Transcriptogramas" );
 				jmm.add( "rotulov", "Nível de expressão" );
 				jmm.add( "rotuloh", "Genes ordenados" );
@@ -248,6 +269,7 @@ public class GraficoTranscriptograma {
 			configuracao.render().strictMode( false );
 			
 			JtwigTemplate modelo = new JtwigTemplate( new JtwigResource() {
+				@Override
 				public InputStream retrieve() throws ResourceException {
 					try{
 						return GraficoTranscriptograma.class.getResourceAsStream( "/transcriptograma.twig.svg" );
@@ -255,9 +277,11 @@ public class GraficoTranscriptograma {
 						throw new ResourceException( e );
 					}
 				}
+				@Override
 				public JtwigResource resolve( String relativePath ) throws ResourceException {
 					return null;
 				}
+				@Override
 				public boolean exists() {
 					return true;
 				}

@@ -1,6 +1,6 @@
 
 #
-#  Copyright (C) 2015 José Flávio de Souza Dias Júnior
+#  Copyright (C) 2015-2016 José Flávio de Souza Dias Júnior
 #  
 #  This file is part of Transcriptograma - <http://www.joseflavio.com/transcriptograma/>.
 #  
@@ -19,7 +19,7 @@
 #
 
 #
-#  Direitos Autorais Reservados (C) 2015 José Flávio de Souza Dias Júnior
+#  Direitos Autorais Reservados (C) 2015-2016 José Flávio de Souza Dias Júnior
 # 
 #  Este arquivo é parte de Transcriptograma - <http://www.joseflavio.com/transcriptograma/>.
 # 
@@ -302,7 +302,7 @@ gerarHeatmap2 <- function( entrada, cabecalhoColunas=TRUE, cabecalhoLinhas=TRUE,
 	titulo=NULL, rotulox=NULL, rotuloy=NULL, crescente=TRUE, coresTotal=24 ){
 
     if( ! "lattice" %in% rownames(installed.packages()) ){
-        install.packages("lattice", dependencies=TRUE)
+        install.packages("lattice", dependencies=TRUE, repos="http://cran-r.c3sl.ufpr.br/")
     }
 
 	library(grDevices)
@@ -327,6 +327,48 @@ gerarHeatmap2 <- function( entrada, cabecalhoColunas=TRUE, cabecalhoLinhas=TRUE,
 		ylab=rotuloy,
 		scales=list(x=list(rot=90))
 	)
+
+}
+
+#----------------------------------------
+
+# Heat map de resultado de DEG (Differentially Expressed Gene).
+# Ver função calcularDEG()
+#
+# transcriptograma: Endereço do arquivo que contém os transcriptogramas.
+# nomenclatura    : Endereço do arquivo com o nome de cada transcriptograma.
+# deg             : Endereço do arquivo gerado por calcularDEG().
+# inicio          : Posição inicial do resultado do DEG a ser considerado.
+# fim             : Posição final do resultado do DEG a ser considerado.
+# titulo          : Título da figura.
+# rotulox         : Rótulo do eixo horizontal da figura.
+# rotuloy         : Rótulo do eixo vertical da figura.
+# saida           : Endereço do arquivo PNG de saída (figura).
+# largura         : Largura da figura, em pixels.
+# altura          : Altura da figura, em pixels.
+# resolucao       : Resolução da figura, em ppi.
+# fonteTamanho    : Tamanho da fonte na figura, em pontos.
+gerarHeatmapDEG <- function( transcriptograma, nomenclatura, deg, inicio=1, fim=50,
+			titulo=NULL, rotulox=NULL, rotuloy=NULL,
+			saida="HeatMapDEG.png", largura=2000, altura=2800, resolucao=100, fonteTamanho=30 ){
+
+	library(grDevices)
+
+	t <- as.matrix(read.table(deg, header=TRUE)[inicio:fim,]$gene)
+
+	m <- as.matrix(read.table(transcriptograma, header=FALSE))
+	rownames(m) <- m[,1]
+	m <- m[,-1]
+	colnames(m) <- as.matrix(read.table(nomenclatura, header=FALSE))
+
+	m <- m[t,]
+	m <- apply(m, c(1,2), as.numeric)
+
+	paleta <- colorRampPalette(c("white","yellow","red","black"),space="rgb")(24)
+
+	png(file=saida, width=largura, height=altura, res=resolucao, pointsize=fonteTamanho)
+	heatmap(m, Rowv=NA, col=paleta, main=titulo, xlab=rotulox, ylab=rotuloy)
+	dev.off()
 
 }
 
@@ -400,7 +442,12 @@ gerarDendrograma <- function( entrada, cabecalhoColunas=TRUE, cabecalhoLinhas=TR
 # anotacao: "org.Hs.eg.db" | "org.Sc.sgd.db" | ...
 # mapa: "org.Hs.egALIAS2EG" | "org.Hs.egENSEMBL2EG" | "org.Hs.egENSEMBLPROT2EG" | ...
 converterNomes <- function( entrada, saida, anotacao="org.Hs.eg.db", mapa="org.Hs.egALIAS2EG" ){
-	
+
+	if( ! anotacao %in% rownames(installed.packages()) ){
+        source("http://bioconductor.org/biocLite.R")
+        biocLite(anotacao)
+    }
+
 	library(anotacao, character.only=TRUE)
 	mapa <- get(mapa)
 
