@@ -71,7 +71,7 @@ public class SepararModulosColoridos {
 			
 			if( prefixo == null ){
 				prefixo = arq_cores.getName();
-				prefixo = prefixo.substring( 0, prefixo.lastIndexOf( '.' ) ) + "_";	
+				prefixo = prefixo.substring( 0, prefixo.lastIndexOf( '.' ) ) + "_";
 			}
 			
 			BufferedImage cores = ImageIO.read( arq_cores );

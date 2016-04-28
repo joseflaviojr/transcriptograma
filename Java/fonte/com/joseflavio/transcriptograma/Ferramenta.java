@@ -210,12 +210,17 @@ public class Ferramenta {
 			Map<String,String> mapa = new HashMap<String,String>( tamanhoEstimado );
 			
 			String linha;
-			String[] valores;
 			while( ( linha = entrada.readLine() ) != null ){
 				
-				valores = linha.split( separador );
+				String[] valores = linha.split( separador );
+				if( valores.length != 2 ) continue;
 				
-				mapa.put( valores[0], valores[1] );
+				String chave = valores[0];
+				String valor = valores[1];
+				
+				if( chave != null && ! chave.isEmpty() ){
+					mapa.put( chave, valor );
+				}
 				
 			}
 			

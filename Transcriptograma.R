@@ -513,7 +513,7 @@ matriz <- function( matriz, cabecalhoColunas=TRUE, cabecalhoLinhas=TRUE ){
 
 # DEG - Differentially Expressed Gene
 #
-# entrada: arquivo de entrada (transcriptogramas)
+# entrada: arquivo de entrada
 # saida: arquivo de saída (ranking dos genes)
 # controle: índices dos transcriptogramas do grupo de controle (ex.: "1-5,8,9-12")
 # alvo: índices dos transcriptogramas do grupo alvo (ex.: "13-21,25,29")
@@ -527,6 +527,7 @@ calcularDEG <- function( entrada, saida, controle, alvo ){
     library("GeneSelector")
 
     tabela <- read.table(entrada)
+    tabela <- tabela[!duplicated(tabela[,1]),]
     genes  <- tabela[,1]
     tabela <- tabela[,-1]
     grupo1 <- numeros(controle)
