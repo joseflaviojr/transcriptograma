@@ -1,67 +1,116 @@
-apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'eclipse'
+//------------------------------------------------------
 
-group = 'com.joseflavio'
-archivesBaseName = 'transcriptograma'
-version = '2015'
+apply plugin: "java"
+apply plugin: "maven"
+apply plugin: "eclipse"
 
-sourceCompatibility = 1.6
-compileJava.options.encoding = 'ISO-8859-1'
+//------------------------------------------------------
+
+String nome = "Transcriptograma"
+String descricao = "Ferramentas para construção e estudo de transcriptogramas."
+
+group = "com.joseflavio"
+archivesBaseName = "transcriptograma"
+version = "2015"
+
+//------------------------------------------------------
+
+float javaVersao = 1.6
+String codificacao = "ISO-8859-1"
+
+sourceCompatibility = javaVersao
+compileJava.options.encoding = codificacao
 
 sourceSets {
-    main.java.srcDirs = ['fonte']
-    main.resources.srcDirs = ['recurso']
+    main.java.srcDirs = ["fonte"]
+    main.resources.srcDirs = ["recurso"]
 }
 
-task jarDist(type: Jar) {
-    manifest {
-        attributes 'Implementation-Title': 'Transcriptograma',
-                   'Implementation-Version': version,
-                   'Main-Class': ''
-    }
-    from { configurations.compile.collect{ it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-task jarFonte(type: Jar) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-task jarJavadoc(type: Jar) {
-    classifier = 'javadoc'
-    from javadoc
-    javadoc.options.encoding = 'ISO-8859-1'
-    javadoc.failOnError = false
-}
-
-artifacts {
-    archives jarFonte, jarJavadoc
-}
+//------------------------------------------------------
 
 repositories {
     mavenCentral()
-    flatDir {
-       dirs 'biblioteca'
-   }
 }
 
 dependencies {
-    compile 'com.lyncode:jtwig-core:3.1.1'
-    compile 'org.slf4j:slf4j-nop:1.7.12'
+    compile fileTree(dir:"biblioteca", include:["*.jar"])
+    compile "com.lyncode:jtwig-core:3.1.1"
+    compile "org.slf4j:slf4j-nop:1.7.12"
 }
+
+//------------------------------------------------------
+
+task jarDist(type: Jar) {
+
+    manifest {
+        attributes "Implementation-Title": nome,
+                   "Implementation-Version": version,
+                   "Main-Class": ""
+    }
+
+    from { configurations.compile.collect{ it.isDirectory() ? it : zipTree(it) } }
+    with jar
+    
+}
+
+//------------------------------------------------------
+
+task jarFonte(type: Jar) {
+    
+    classifier = "fonte"
+    from sourceSets.main.allSource
+
+    manifest {
+        attributes "Implementation-Title": nome + " - Codigo Fonte",
+                   "Implementation-Version": version,
+                   "Main-Class": ""
+    }
+
+}
+
+//------------------------------------------------------
+
+task jarDoc(type: Jar) {
+
+    classifier = "doc"
+    from javadoc
+
+    javadoc.options.encoding = codificacao
+    javadoc.failOnError = false
+    javadoc.title = nome + " " + version
+    javadoc.options.links = []
+    
+}
+
+//------------------------------------------------------
+
+build.dependsOn jarDist
+
+//------------------------------------------------------
+
+artifacts {
+    archives jarFonte, jarDoc
+}
+
+//------------------------------------------------------
 
 eclipse {
     project {
-        name = 'transcriptograma'
+        name = archivesBaseName
+        comment = descricao
+    }
+    jdt {
+        sourceCompatibility = javaVersao
+        targetCompatibility = javaVersao
     }
     classpath {
-        defaultOutputDir = file('binario')
+        defaultOutputDir = file("binario")
         file {
             beforeMerged {
-                classpath -> classpath.entries.removeAll { entry -> entry.kind == 'output' }
+                classpath -> classpath.entries.removeAll { entry -> entry.kind == "output" }
             }
         }
     }
 }
+
+//------------------------------------------------------
