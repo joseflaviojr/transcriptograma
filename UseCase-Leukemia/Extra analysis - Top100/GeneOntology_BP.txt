@@ -1,0 +1,21 @@
+GO	Term	1	2
+GO:0001776	leukocyte homeostasis	0.000751592992364622	NA
+GO:0035821	modification of morphology or physiology of other organism	0.000778168453528815	NA
+GO:0002513	tolerance induction to self antigen	0.000778168453528815	NA
+GO:0002260	lymphocyte homeostasis	0.000818514928197424	NA
+GO:0032945	negative regulation of mononuclear cell proliferation	0.000818514928197424	NA
+GO:0050672	negative regulation of lymphocyte proliferation	0.000818514928197424	NA
+GO:0001782	B cell homeostasis	0.000818514928197424	NA
+GO:0070664	negative regulation of leukocyte proliferation	0.000818514928197424	NA
+GO:0051817	modification of morphology or physiology of other organism involved in symbiotic interaction	0.000818514928197424	NA
+GO:0018107	peptidyl-threonine phosphorylation	0.000818514928197424	NA
+GO:0050869	negative regulation of B cell activation	0.000818514928197424	NA
+GO:1901841	regulation of high voltage-gated calcium channel activity	0.000818514928197424	NA
+GO:0010799	regulation of peptidyl-threonine phosphorylation	0.000818514928197424	NA
+GO:0018210	peptidyl-threonine modification	0.000818514928197424	NA
+GO:0007435	salivary gland morphogenesis	0.000827989775087058	NA
+GO:0045930	negative regulation of mitotic cell cycle	NA	0.00060246060980079
+GO:0000075	cell cycle checkpoint	NA	0.00060246060980079
+GO:2000785	regulation of autophagosome assembly	NA	0.000675817645583547
+GO:0044088	regulation of vacuole organization	NA	0.000875841673114581
+GO:2000786	positive regulation of autophagosome assembly	NA	0.000875841673114581

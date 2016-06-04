@@ -1,0 +1,221 @@
+GO	Term	1
+GO:0000209	protein polyubiquitination	6.23998579545929e-10
+GO:0044260	cellular macromolecule metabolic process	1.43473472986678e-09
+GO:0044257	cellular protein catabolic process	1.36558037293454e-08
+GO:0044237	cellular metabolic process	1.46074506828709e-08
+GO:0006511	ubiquitin-dependent protein catabolic process	3.17652768090904e-08
+GO:0019941	modification-dependent protein catabolic process	3.17652768090904e-08
+GO:0030163	protein catabolic process	3.17652768090904e-08
+GO:0043170	macromolecule metabolic process	3.17652768090904e-08
+GO:0051603	proteolysis involved in cellular protein catabolic process	3.17652768090904e-08
+GO:0043632	modification-dependent macromolecule catabolic process	3.17652768090904e-08
+GO:0031323	regulation of cellular metabolic process	3.17652768090904e-08
+GO:0090304	nucleic acid metabolic process	3.17652768090904e-08
+GO:0010498	proteasomal protein catabolic process	3.71334515878585e-08
+GO:0051252	regulation of RNA metabolic process	3.71977575182134e-08
+GO:0016070	RNA metabolic process	4.72497019937273e-08
+GO:0019219	regulation of nucleobase-containing compound metabolic process	7.917579374424e-08
+GO:0051171	regulation of nitrogen compound metabolic process	7.917579374424e-08
+GO:0043161	proteasome-mediated ubiquitin-dependent protein catabolic process	8.70074361909214e-08
+GO:0031329	regulation of cellular catabolic process	1.10555909789947e-07
+GO:0016567	protein ubiquitination	1.49349641761513e-07
+GO:0009057	macromolecule catabolic process	2.00623006012358e-07
+GO:0080090	regulation of primary metabolic process	2.81180716273606e-07
+GO:0046483	heterocycle metabolic process	3.31330204286089e-07
+GO:0044265	cellular macromolecule catabolic process	3.31330204286089e-07
+GO:0010467	gene expression	5.53611017149658e-07
+GO:0032446	protein modification by small protein conjugation	5.87129312585987e-07
+GO:0006139	nucleobase-containing compound metabolic process	6.00573481479295e-07
+GO:0097659	nucleic acid-templated transcription	7.03611678472559e-07
+GO:0009894	regulation of catabolic process	7.1311771492239e-07
+GO:0060255	regulation of macromolecule metabolic process	7.71152537765095e-07
+GO:0034641	cellular nitrogen compound metabolic process	7.9588051479409e-07
+GO:0010468	regulation of gene expression	7.9588051479409e-07
+GO:0006351	transcription, DNA-templated	8.24960229009019e-07
+GO:0044238	primary metabolic process	8.42731739828629e-07
+GO:0006725	cellular aromatic compound metabolic process	8.42731739828629e-07
+GO:0042787	protein ubiquitination involved in ubiquitin-dependent protein catabolic process	8.88709513784101e-07
+GO:0019222	regulation of metabolic process	1.19017912535292e-06
+GO:1903506	regulation of nucleic acid-templated transcription	1.58202588209448e-06
+GO:1901360	organic cyclic compound metabolic process	1.74616696586036e-06
+GO:0071704	organic substance metabolic process	1.74616696586036e-06
+GO:0006355	regulation of transcription, DNA-templated	1.88050968129809e-06
+GO:0009896	positive regulation of catabolic process	1.93638293326685e-06
+GO:2001141	regulation of RNA biosynthetic process	1.94435418637469e-06
+GO:0042590	antigen processing and presentation of exogenous peptide antigen via MHC class I	2.51143289272809e-06
+GO:0006807	nitrogen compound metabolic process	2.51143289272809e-06
+GO:1903362	regulation of cellular protein catabolic process	2.57374737725668e-06
+GO:2000058	regulation of protein ubiquitination involved in ubiquitin-dependent protein catabolic process	2.71298958139924e-06
+GO:0008152	metabolic process	2.71298958139924e-06
+GO:0070647	protein modification by small protein conjugation or removal	2.71298958139924e-06
+GO:1903050	regulation of proteolysis involved in cellular protein catabolic process	2.81644148070317e-06
+GO:0032774	RNA biosynthetic process	2.86152920607478e-06
+GO:0044248	cellular catabolic process	4.68675823506834e-06
+GO:2000112	regulation of cellular macromolecule biosynthetic process	5.24235224577624e-06
+GO:2000060	positive regulation of protein ubiquitination involved in ubiquitin-dependent protein catabolic process	5.32798769155624e-06
+GO:0002474	antigen processing and presentation of peptide antigen via MHC class I	5.3782824550026e-06
+GO:0048523	negative regulation of cellular process	5.3782824550026e-06
+GO:0051437	positive regulation of ubiquitin-protein ligase activity involved in regulation of mitotic cell cycle transition	5.57479762928661e-06
+GO:0051253	negative regulation of RNA metabolic process	5.86789888827195e-06
+GO:0002479	antigen processing and presentation of exogenous peptide antigen via MHC class I, TAP-dependent	8.16742803047269e-06
+GO:0031331	positive regulation of cellular catabolic process	8.34280400024325e-06
+GO:0070936	protein K48-linked ubiquitination	9.78713596270715e-06
+GO:0045934	negative regulation of nucleobase-containing compound metabolic process	1.06447598360548e-05
+GO:0010556	regulation of macromolecule biosynthetic process	1.23422489824196e-05
+GO:0051443	positive regulation of ubiquitin-protein transferase activity	1.4701400371515e-05
+GO:1903321	negative regulation of protein modification by small protein conjugation or removal	1.48480379513923e-05
+GO:0006977	DNA damage response, signal transduction by p53 class mediator resulting in cell cycle arrest	1.54816057729748e-05
+GO:0031324	negative regulation of cellular metabolic process	1.54816057729748e-05
+GO:0002478	antigen processing and presentation of exogenous peptide antigen	1.6456485520715e-05
+GO:0045732	positive regulation of protein catabolic process	1.6456485520715e-05
+GO:1902679	negative regulation of RNA biosynthetic process	1.6532264024646e-05
+GO:0072431	signal transduction involved in mitotic G1 DNA damage checkpoint	1.6532264024646e-05
+GO:1902400	intracellular signal transduction involved in G1 DNA damage checkpoint	1.6532264024646e-05
+GO:0042176	regulation of protein catabolic process	1.6855620898539e-05
+GO:0009889	regulation of biosynthetic process	1.93011237622217e-05
+GO:0051172	negative regulation of nitrogen compound metabolic process	2.00235202852587e-05
+GO:0072413	signal transduction involved in mitotic cell cycle checkpoint	2.00235202852587e-05
+GO:1902402	signal transduction involved in mitotic DNA damage checkpoint	2.00235202852587e-05
+GO:1902403	signal transduction involved in mitotic DNA integrity checkpoint	2.00235202852587e-05
+GO:0051351	positive regulation of ligase activity	2.03363556553157e-05
+GO:0002429	immune response-activating cell surface receptor signaling pathway	2.31915430470101e-05
+GO:0019884	antigen processing and presentation of exogenous antigen	2.31915430470101e-05
+GO:0031397	negative regulation of protein ubiquitination	2.41618393728435e-05
+GO:0072401	signal transduction involved in DNA integrity checkpoint	2.41618393728435e-05
+GO:0072422	signal transduction involved in DNA damage checkpoint	2.41618393728435e-05
+GO:0031326	regulation of cellular biosynthetic process	2.48133836409378e-05
+GO:0044403	symbiosis, encompassing mutualism through parasitism	2.6201094185899e-05
+GO:0044419	interspecies interaction between organisms	2.6201094185899e-05
+GO:0072395	signal transduction involved in cell cycle checkpoint	2.6201094185899e-05
+GO:0071158	positive regulation of cell cycle arrest	2.65325031186167e-05
+GO:0019882	antigen processing and presentation	2.80660055359637e-05
+GO:0018130	heterocycle biosynthetic process	2.838429267925e-05
+GO:1903364	positive regulation of cellular protein catabolic process	2.90637341212831e-05
+GO:0034654	nucleobase-containing compound biosynthetic process	3.01410817080318e-05
+GO:0051436	negative regulation of ubiquitin-protein ligase activity involved in mitotic cell cycle	3.11187188053549e-05
+GO:0000045	autophagosome assembly	3.11187188053549e-05
+GO:1901575	organic substance catabolic process	3.59242723030062e-05
+GO:1903507	negative regulation of nucleic acid-templated transcription	3.60772866594537e-05
+GO:0031145	anaphase-promoting complex-dependent proteasomal ubiquitin-dependent protein catabolic process	3.60772866594537e-05
+GO:0031571	mitotic G1 DNA damage checkpoint	3.79702737236042e-05
+GO:0042770	signal transduction in response to DNA damage	4.01340127553373e-05
+GO:0048519	negative regulation of biological process	4.01340127553373e-05
+GO:0071345	cellular response to cytokine stimulus	4.01340127553373e-05
+GO:0019221	cytokine-mediated signaling pathway	4.01340127553373e-05
+GO:0044783	G1 DNA damage checkpoint	4.01340127553373e-05
+GO:0044819	mitotic G1/S transition checkpoint	4.01340127553373e-05
+GO:0009056	catabolic process	4.01340127553373e-05
+GO:0034645	cellular macromolecule biosynthetic process	4.08652630943772e-05
+GO:0019438	aromatic compound biosynthetic process	4.08652630943772e-05
+GO:1903052	positive regulation of proteolysis involved in cellular protein catabolic process	4.08652630943772e-05
+GO:0048002	antigen processing and presentation of peptide antigen	4.1623271636243e-05
+GO:1901362	organic cyclic compound biosynthetic process	4.55113949964013e-05
+GO:0010605	negative regulation of macromolecule metabolic process	4.68736817843141e-05
+GO:0051444	negative regulation of ubiquitin-protein transferase activity	5.32320553363989e-05
+GO:0007265	Ras protein signal transduction	5.71764304646037e-05
+GO:0051352	negative regulation of ligase activity	5.76330169021938e-05
+GO:0051439	regulation of ubiquitin-protein ligase activity involved in mitotic cell cycle	6.28746999153823e-05
+GO:0007173	epidermal growth factor receptor signaling pathway	6.93118809204244e-05
+GO:0045787	positive regulation of cell cycle	7.12840566934567e-05
+GO:0038061	NIK/NF-kappaB signaling	7.33910321305423e-05
+GO:0016032	viral process	7.33910321305423e-05
+GO:0044271	cellular nitrogen compound biosynthetic process	8.28060538527165e-05
+GO:0002223	stimulatory C-type lectin receptor signaling pathway	8.29344907922294e-05
+GO:0038127	ERBB signaling pathway	8.86170312796792e-05
+GO:0010629	negative regulation of gene expression	8.9000796016078e-05
+GO:0033238	regulation of cellular amine metabolic process	8.95735117726155e-05
+GO:0010558	negative regulation of macromolecule biosynthetic process	9.91383576086289e-05
+GO:0044764	multi-organism cellular process	9.91383576086289e-05
+GO:0002220	innate immune response activating cell surface receptor signaling pathway	0.000100637068158095
+GO:0002757	immune response-activating signal transduction	0.000101492078151147
+GO:0007033	vacuole organization	0.000101595185331594
+GO:0045892	negative regulation of transcription, DNA-templated	0.000101595185331594
+GO:0043484	regulation of RNA splicing	0.000114060698161694
+GO:0009059	macromolecule biosynthetic process	0.000128980116744084
+GO:0042059	negative regulation of epidermal growth factor receptor signaling pathway	0.000131887928238946
+GO:1901185	negative regulation of ERBB signaling pathway	0.000152402756666798
+GO:0071156	regulation of cell cycle arrest	0.000154524684081321
+GO:0031327	negative regulation of cellular biosynthetic process	0.000164306960380113
+GO:0050778	positive regulation of immune response	0.000171478441399043
+GO:0031398	positive regulation of protein ubiquitination	0.000175389658174743
+GO:0030330	DNA damage response, signal transduction by p53 class mediator	0.000176461533902051
+GO:0061136	regulation of proteasomal protein catabolic process	0.000178932198803488
+GO:0009892	negative regulation of metabolic process	0.000181795160913267
+GO:0050794	regulation of cellular process	0.000202202998713562
+GO:0051340	regulation of ligase activity	0.000202202998713562
+GO:0051438	regulation of ubiquitin-protein transferase activity	0.000202202998713562
+GO:0009890	negative regulation of biosynthetic process	0.000223291550752266
+GO:0002684	positive regulation of immune system process	0.000223594264127644
+GO:0032700	negative regulation of interleukin-17 production	0.00023180893362605
+GO:0071356	cellular response to tumor necrosis factor	0.000243913861516521
+GO:0008380	RNA splicing	0.000243913861516521
+GO:0006521	regulation of cellular amino acid metabolic process	0.000251161119631401
+GO:0033209	tumor necrosis factor-mediated signaling pathway	0.000254408734411884
+GO:0038093	Fc receptor signaling pathway	0.000257889196414214
+GO:0044804	nucleophagy	0.000300512895272498
+GO:0050776	regulation of immune response	0.000302240877546747
+GO:0044773	mitotic DNA damage checkpoint	0.000302240877546747
+GO:2000134	negative regulation of G1/S transition of mitotic cell cycle	0.000302240877546747
+GO:0002768	immune response-regulating cell surface receptor signaling pathway	0.000302362041964425
+GO:0006464	cellular protein modification process	0.000302637750870195
+GO:0036211	protein modification process	0.000302637750870195
+GO:1903320	regulation of protein modification by small protein conjugation or removal	0.000302637750870195
+GO:0050789	regulation of biological process	0.000304034590780848
+GO:1903322	positive regulation of protein modification by small protein conjugation or removal	0.00031894544152431
+GO:0008286	insulin receptor signaling pathway	0.00032117461078152
+GO:2000045	regulation of G1/S transition of mitotic cell cycle	0.000326313700815404
+GO:0034097	response to cytokine	0.000352318258406046
+GO:0009968	negative regulation of signal transduction	0.000357880817416368
+GO:1902807	negative regulation of cell cycle G1/S phase transition	0.000358262205978345
+GO:2000113	negative regulation of cellular macromolecule biosynthetic process	0.000365414315005083
+GO:0031396	regulation of protein ubiquitination	0.000365414315005083
+GO:0000186	activation of MAPKK activity	0.000365586998990555
+GO:0060333	interferon-gamma-mediated signaling pathway	0.00037893648901622
+GO:0033554	cellular response to stress	0.000394619733500434
+GO:0002253	activation of immune response	0.000395292286213917
+GO:0006508	proteolysis	0.000418169984112403
+GO:0038095	Fc-epsilon receptor signaling pathway	0.00041904935096769
+GO:0044774	mitotic DNA integrity checkpoint	0.000427495121172336
+GO:0090090	negative regulation of canonical Wnt signaling pathway	0.000468455684377654
+GO:0043412	macromolecule modification	0.000471596578080599
+GO:0002764	immune response-regulating signaling pathway	0.000482143609793434
+GO:0065007	biological regulation	0.000484679986260862
+GO:0007093	mitotic cell cycle checkpoint	0.000509835355528631
+GO:1902806	regulation of cell cycle G1/S phase transition	0.000513635974557812
+GO:0034612	response to tumor necrosis factor	0.000514151616202339
+GO:0048010	vascular endothelial growth factor receptor signaling pathway	0.000515423616530951
+GO:0048011	neurotrophin TRK receptor signaling pathway	0.000517020332304491
+GO:0016241	regulation of macroautophagy	0.000529754870899993
+GO:0051091	positive regulation of sequence-specific DNA binding transcription factor activity	0.000531088693813885
+GO:0038179	neurotrophin signaling pathway	0.000562685670613828
+GO:0070534	protein K63-linked ubiquitination	0.000630765617697651
+GO:0045087	innate immune response	0.00065101239080079
+GO:0032434	regulation of proteasomal ubiquitin-dependent protein catabolic process	0.00065101239080079
+GO:0048518	positive regulation of biological process	0.00065101239080079
+GO:0044249	cellular biosynthetic process	0.000652651864230487
+GO:0071346	cellular response to interferon-gamma	0.00067811960252809
+GO:0006950	response to stress	0.00067811960252809
+GO:0006540	glutamate decarboxylation to succinate	0.00067811960252809
+GO:0018352	protein-pyridoxal-5-phosphate linkage	0.00067811960252809
+GO:0023057	negative regulation of signaling	0.000755692391433251
+GO:0010821	regulation of mitochondrion organization	0.000761156456506164
+GO:0032869	cellular response to insulin stimulus	0.000762982196348706
+GO:0007169	transmembrane receptor protein tyrosine kinase signaling pathway	0.000762982196348706
+GO:0006915	apoptotic process	0.000762982196348706
+GO:0031349	positive regulation of defense response	0.000770000531740725
+GO:0000122	negative regulation of transcription from RNA polymerase II promoter	0.000770706759228878
+GO:0051090	regulation of sequence-specific DNA binding transcription factor activity	0.000770706759228878
+GO:0006397	mRNA processing	0.00079065110865894
+GO:1901841	regulation of high voltage-gated calcium channel activity	0.000809156418995515
+GO:0031400	negative regulation of protein modification process	0.000809156418995515
+GO:0010648	negative regulation of cell communication	0.000889272060505602
+GO:0006995	cellular response to nitrogen starvation	0.000889272060505602
+GO:0043562	cellular response to nitrogen levels	0.000889272060505602
+GO:0072331	signal transduction by p53 class mediator	0.000907315053717753
+GO:1901990	regulation of mitotic cell cycle phase transition	0.000907315053717753
+GO:0008219	cell death	0.000907315053717753
+GO:0016265	death	0.000907315053717753
+GO:0012501	programmed cell death	0.000939557505492987
+GO:0048522	positive regulation of cellular process	0.000942797634872569
+GO:0045088	regulation of innate immune response	0.000969069221456654
+GO:1901991	negative regulation of mitotic cell cycle phase transition	0.000981962426539555

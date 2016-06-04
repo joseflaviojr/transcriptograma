@@ -1,0 +1,17 @@
+
+Matriz: Network.csv
+Ordem:  Seriation_Final_Sequence.txt
+
+Grafo orientado: Não
+Vértices: 4303
+Arestas:  13685
+Arestas/Vértices:  3.1803393
+
+Dispersão inicial (Di)  : 18173139
+Dispersão final   (Df)  : 5145334
+Dispersão mínima  (Dmin): 28932
+Dispersão máxima  (Dmax): 57377190
+Redução local           : 71.68715 %   1-Df/Di
+Redução global          : 91.07836 %   1-(Df-Dmin)/(Dmax-Dmin)
+Custo CFM               : 40440276
+

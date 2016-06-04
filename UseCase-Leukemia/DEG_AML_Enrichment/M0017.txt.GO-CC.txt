@@ -1,0 +1,2 @@
+GOCCID	Pvalue	OddsRatio	ExpCount	Count	Size	Term
+GO:0000151	0.000233921559404545	10.1385346626478	0.561680085580767	5	232	ubiquitin ligase complex

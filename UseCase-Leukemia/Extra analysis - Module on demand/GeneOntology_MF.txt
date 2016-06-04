@@ -1,0 +1,16 @@
+GO	Term	1
+GO:0005515	protein binding	1.59552714834091e-58
+GO:0005488	binding	1.89041763723966e-23
+GO:1901363	heterocyclic compound binding	4.50311045780772e-05
+GO:0003676	nucleic acid binding	5.18789769926853e-05
+GO:0097159	organic cyclic compound binding	5.78036091593675e-05
+GO:0016874	ligase activity	5.78036091593675e-05
+GO:0019787	ubiquitin-like protein transferase activity	0.000243971806543839
+GO:0004842	ubiquitin-protein transferase activity	0.00029563231636928
+GO:0036402	proteasome-activating ATPase activity	0.000594552084345058
+GO:0032182	ubiquitin-like protein binding	0.000793776115879486
+GO:0043130	ubiquitin binding	0.000793776115879486
+GO:0001071	nucleic acid binding transcription factor activity	0.000793776115879486
+GO:0003700	transcription factor activity, sequence-specific DNA binding	0.000793776115879486
+GO:0061631	ubiquitin conjugating enzyme activity	0.000843096438776658
+GO:0061650	ubiquitin-like protein conjugating enzyme activity	0.000930190292591314

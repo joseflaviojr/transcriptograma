@@ -1,0 +1,2 @@
+GOBPID	Pvalue	OddsRatio	ExpCount	Count	Size	Term
+GO:0000122	0.000733680326881535	4.68835272686717	2.00018142235123	8	735	negative regulation of transcription from RNA polymerase II promoter

@@ -1,0 +1,6 @@
+titulo=Transcriptograms of Acute Myeloid Leukemia (AML) - GSE49642
+rotulov=Expression Level
+rotuloh=HI-II-14 Human Network / Claritate Seriation
+transcriptograma=Transcriptogram
+modjanela=Window Modularity
+moddensidade=Density Modularity

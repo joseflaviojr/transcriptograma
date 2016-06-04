@@ -1,0 +1,2 @@
+Silhouette	Dunn	Connectivity
+-0.6813849	0.000232396	8415.623

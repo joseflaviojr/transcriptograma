@@ -1,0 +1,19 @@
+GOBPID	Pvalue	OddsRatio	ExpCount	Count	Size	Term
+GO:0060370	0.000419303167026859	686.875	0.0090711175616836	2	3	susceptibility to T cell mediated cytotoxicity
+GO:0042271	0.000419303167026859	228.930555555556	0.0151185292694727	2	5	susceptibility to natural killer cell mediated cytotoxicity
+GO:0002420	0.000419303167026859	137.341666666667	0.0211659409772617	2	7	natural killer cell mediated cytotoxicity directed against tumor cell target
+GO:0002423	0.000419303167026859	137.341666666667	0.0211659409772617	2	7	natural killer cell mediated immune response to tumor cell
+GO:0002855	0.000419303167026859	137.341666666667	0.0211659409772617	2	7	regulation of natural killer cell mediated immune response to tumor cell
+GO:0002857	0.000419303167026859	137.341666666667	0.0211659409772617	2	7	positive regulation of natural killer cell mediated immune response to tumor cell
+GO:0002858	0.000419303167026859	137.341666666667	0.0211659409772617	2	7	regulation of natural killer cell mediated cytotoxicity directed against tumor cell target
+GO:0002860	0.000419303167026859	137.341666666667	0.0211659409772617	2	7	positive regulation of natural killer cell mediated cytotoxicity directed against tumor cell target
+GO:0042992	0.00043397629095143	25.6019719771666	0.133043057571359	3	44	negative regulation of transcription factor import into nucleus
+GO:0002834	0.00043397629095143	98.0892857142857	0.0272133526850508	2	9	regulation of response to tumor cell
+GO:0002836	0.00043397629095143	98.0892857142857	0.0272133526850508	2	9	positive regulation of response to tumor cell
+GO:0002837	0.00043397629095143	98.0892857142857	0.0272133526850508	2	9	regulation of immune response to tumor cell
+GO:0002839	0.00043397629095143	98.0892857142857	0.0272133526850508	2	9	positive regulation of immune response to tumor cell
+GO:0007157	0.00043397629095143	24.9908814589666	0.136066763425254	3	45	heterophilic cell-cell adhesion via plasma membrane cell adhesion molecules
+GO:0002418	0.000544854401725854	76.2824074074074	0.0332607643928399	2	11	immune response to tumor cell
+GO:0051654	0.000544854401725854	76.2824074074074	0.0332607643928399	2	11	establishment of mitochondrion localization
+GO:0008037	0.000615668400524525	11.5680452456698	0.384010643444606	4	127	cell recognition
+GO:0002347	0.000796686738422922	57.2013888888889	0.0423318819545235	2	14	response to tumor cell
